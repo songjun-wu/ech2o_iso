@@ -51,49 +51,7 @@ int main(int argc, char* argv[]) {
     Splash(argc, argv);
     CreateWorld(argv);
 
-    if(oControl->starttime > 0){
-      cout << "Start time later than climate start time" << endl;
-      cout << "   -- Spin up climate maps to start time" << endl;
-      // need to initialize nc files here if start time is not 1
-      if(oControl->sw_netcdf){
-	oReport->CreatOutputNC(oControl->path_ResultsFolder, "W");
-	oReport->CreatOutputNC(oControl->path_ResultsFolder, "VG");
-	if(oControl->sw_trck){
-	  if(oControl->sw_2H)
-	    oReport->CreatOutputNC(oControl->path_ResultsFolder, "TD");
-	  if(oControl->sw_18O)
-	    oReport->CreatOutputNC(oControl->path_ResultsFolder, "TO");
-	  if(oControl->sw_Age)
-	    oReport->CreatOutputNC(oControl->path_ResultsFolder, "TA");
-	}
-      }//end net cdf initialization
-      // Run loop until correct starting time
-      while (oControl->current_t_step <= oControl->starttime) {
-	oControl->AdvanceTimeStep();
-	advance_climate += oControl->dt;
-	if (advance_climate >= oControl->BC_dt) {
-	  oAtmosphere->AdvanceClimateMaps(*oControl);
 
-	  if(oControl->toggle_veg_dyn==2){
-	    oBasin->AdvanceLAIMaps();
-	  }
-	  
-	  if(oControl->sw_BC){
-	    oBasin->AdvanceBCMaps(*oAtmosphere,*oControl);
-	    if(oControl->sw_trck){
-	      if(oControl->sw_2H)
-		 oTracking->AdvanceBCMaps_Iso(*oAtmosphere,*oControl,0);
-	      if(oControl->sw_18O)
-		 oTracking->AdvanceBCMaps_Iso(*oAtmosphere,*oControl,1);
-	      if(oControl->sw_Age)
-		 oTracking->AdvanceBCMaps_Iso(*oAtmosphere,*oControl,2);
-	    }
-	  }
-	
-	  advance_climate = 0;
-	}	
-      } // end while loop
-    } // end skipping to start time
 
     while (oControl->current_t_step <= oControl->endtime) {
 
@@ -114,11 +72,7 @@ int main(int argc, char* argv[]) {
       if (oControl->current_t_step >= oControl->reportMap_start) { 
 	reportMap_time += oControl->dt;
 	if (reportMap_time >= oControl->reportMap_times) { //if report time overdue
-	  if(oControl->sw_netcdf){
-	    Report2nc(); //report results in nc
-	  } else {
-	    Report2Maps(); //report results
-	  }
+	  Report2Maps();
 	  reportMap_time = 0; //reset the counter
 	}
       }
