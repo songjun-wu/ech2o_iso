@@ -130,7 +130,7 @@ int Basin::SolveCanopyFluxes(Atmosphere &atm, Control &ctrl, Tracking &trck) {
       if(ctrl.sw_trck){
 	if(numT == 1)
 	  tracer(0) = (ctrl.sw_2H ? 0 : (ctrl.sw_18O ? 1 : 2));
-	if(numT == 2){
+	else if(numT == 2){
 	  tracer(0) = (ctrl.sw_2H ? 0 : (ctrl.sw_18O ? 1 : 2));
 	  tracer(1) = (ctrl.sw_2H ? (ctrl.sw_18O ? 1 : 2) : 2);
 	} else {

@@ -32,7 +32,6 @@
 
 
 int SolveTimeStep(){
-
   oBasin->SolveCanopyFluxes(*oAtmosphere, *oControl, *oTracking);
   oBasin->SolveSurfaceFluxes(*oAtmosphere, *oControl, *oTracking);
   oBasin->CalculateGrowForest(*oAtmosphere, *oControl);

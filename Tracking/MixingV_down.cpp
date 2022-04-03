@@ -311,6 +311,7 @@ void Tracking::MixingV_down(Basin &bsn, Control &ctrl,
     } else if (L2toL3>RNDOFFERR){// Soil-averaged
       if(ctrl.sw_2H){
 	L2toL3_d2 = L2toL3_d2 == -1000 ? _d2Hsoil2->matrix[r][c] : L2toL3_d2;
+	
     	TracerMixing(bsn,ctrl,theta3_old*d3,_d2Hsoil3->matrix[r][c],_d2Hsoil3->matrix[r][c],
 		     L2toL3,L2toL3_d2,leak,L3out_d2,S3,ctrl.toggle_mix,r,c);
 	_d2HRecharge->matrix[r][c] = step == 0 ? L2toL3_d2 :

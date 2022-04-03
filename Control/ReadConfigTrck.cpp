@@ -305,6 +305,27 @@ int Control::ReadConfigTrck(string confilename /*= "configTrck.ini"*/)
       RepTs_Age_TB2 = ConfigTrck.read<bool>("Ts_Agesoil2_TightlyBound");
       RepTs_Age_TBUp = ConfigTrck.read<bool>("Ts_AgesoilUp_TightlyBound");
     }
+    // Boundary conditions
+      if(sw_BC){
+      if(sw_2H){
+      ConfigTrck.readInto(fn_d2HsurfaceBC, "TimeSeries_BC_d2H_surface");
+      ConfigTrck.readInto(fn_d2HgroundwaterBC, "TimeSeries_BC_d2H_groundwater");
+      if(sw_deepGW)
+	ConfigTrck.readInto(fn_d2HdeepGWBC,"TimeSeries_BC_d2H_DeepGW");
+       }
+      if(sw_18O){
+      ConfigTrck.readInto(fn_d18OsurfaceBC, "TimeSeries_BC_d18O_surface");
+      ConfigTrck.readInto(fn_d18OgroundwaterBC, "TimeSeries_BC_d18O_groundwater");
+      if(sw_deepGW)
+	ConfigTrck.readInto(fn_d18OdeepGWBC,"TimeSeries_BC_d18O_DeepGW");
+       }
+      if(sw_Age){
+      ConfigTrck.readInto(fn_AgesurfaceBC, "TimeSeries_BC_Age_surface");
+      ConfigTrck.readInto(fn_AgegroundwaterBC, "TimeSeries_BC_Age_groundwater");
+      if(sw_deepGW)
+	ConfigTrck.readInto(fn_AgedeepGWBC,"TimeSeries_BC_Age_DeepGW");
+       }
+      }
   }
   catch(ConfigFile::file_not_found &fn){
     cout << "Tracking file " << fn.filename << " not found\n";

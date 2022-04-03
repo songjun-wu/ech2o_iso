@@ -449,7 +449,7 @@ struct Control{
   string fn_d2Hsoil3;
   string fn_d2Hgroundwater;
   string fn_d2HDeepGW;
-  string fn_d2HsurfaceBC, fn_d2Hlayer1BC, fn_d2Hlayer2BC, fn_d2HgroundwaterBC;
+  string fn_d2HsurfaceBC, fn_d2Hlayer1BC, fn_d2Hlayer2BC, fn_d2HgroundwaterBC, fn_d2HdeepGWBC;
   
   string fn_d18Oprecip; // O eighteen signature in precipitations (18O, per mil)
   //string fn_d2Hcanopy;
@@ -461,7 +461,7 @@ struct Control{
   string fn_d18Ogroundwater;
   string fn_d18ODeepGW;
 
-  string fn_d18OsurfaceBC, fn_d18Olayer1BC, fn_d18Olayer2BC, fn_d18OgroundwaterBC;
+  string fn_d18OsurfaceBC, fn_d18Olayer1BC, fn_d18Olayer2BC, fn_d18OgroundwaterBC, fn_d18OdeepGWBC;
   
   //string fn_Agecanopy;
   string fn_Agesnowpack;
@@ -472,7 +472,7 @@ struct Control{
   string fn_Agegroundwater;
   string fn_AgeDeepGW;
 
-  string fn_AgesurfaceBC, fn_Agelayer1BC, fn_Agelayer2BC, fn_AgegroundwaterBC;
+  string fn_AgesurfaceBC, fn_Agelayer1BC, fn_Agelayer2BC, fn_AgegroundwaterBC, fn_AgedeepGWBC;
   
   /* maps report */
   bool Rep_Moist_MW1;

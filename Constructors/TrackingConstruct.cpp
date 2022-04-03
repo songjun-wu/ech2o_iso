@@ -45,35 +45,41 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
   _d2Hlayer1BC      = NULL;
   _d2Hlayer2BC      = NULL;
   _d2HgroundwaterBC = NULL;
+  _d2HdeepGWBC      = NULL;
   _d18OsurfaceBC     = NULL;
   _d18Olayer1BC      = NULL;
   _d18Olayer2BC      = NULL;
   _d18OgroundwaterBC = NULL;
+  _d18OdeepGWBC      = NULL;
   _AgesurfaceBC     = NULL;
   _Agelayer1BC      = NULL;
   _Agelayer2BC      = NULL;
   _AgegroundwaterBC = NULL;
+  _AgedeepGWBC      = NULL;
+  
   if(ctrl.sw_BC){
     if(ctrl.sw_2H){
       _d2HsurfaceBC     = new grid(*bsn.getDEM());
       _d2Hlayer1BC      = new grid(*bsn.getDEM());
       _d2Hlayer2BC      = new grid(*bsn.getDEM());
       _d2HgroundwaterBC = new grid(*bsn.getDEM());
+      _d2HdeepGWBC      = new grid(*bsn.getDEM());
 
       *_d2HsurfaceBC = *bsn.getDEM();
       *_d2Hlayer1BC = *bsn.getDEM();
       *_d2Hlayer2BC = *bsn.getDEM();
       *_d2HgroundwaterBC = *bsn.getDEM();
+      *_d2HdeepGWBC = *bsn.getDEM();
 
       try{
 	ifd2HsurfaceBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d2HsurfaceBC).c_str(), ios::binary);
 	if(errno!=0) throw ctrl.fn_d2HsurfaceBC;
-	ifd2Hlayer1BC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d2Hlayer1BC).c_str(), ios::binary);
-	if(errno!=0) throw ctrl.fn_d2Hlayer1BC;
-	ifd2Hlayer2BC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d2Hlayer2BC).c_str(), ios::binary);
-	if(errno!=0) throw ctrl.fn_d2Hlayer2BC;
 	ifd2HgroundwaterBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d2HgroundwaterBC).c_str(), ios::binary);
 	if(errno!=0) throw ctrl.fn_d2HgroundwaterBC;
+	if(ctrl.sw_deepGW){
+	ifd2HdeepGWBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d2HdeepGWBC).c_str(), ios::binary);
+	if(errno!=0) throw ctrl.fn_d2HgroundwaterBC;
+	}
       } catch (string e){
 	cout << "Dang!!: cannot find/read the " << e << " file: error " << strerror(errno) << endl;
 	throw;
@@ -82,12 +88,12 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
       try{
 	if(InitiateBCMap_Iso(ifd2HsurfaceBC, *_d2HsurfaceBC, atm) != atm.getSsortedGridTotalCellNumber())
 	  throw string("d2H surface BC");
-	if(InitiateBCMap_Iso(ifd2Hlayer1BC, *_d2Hlayer1BC, atm) != atm.getSsortedGridTotalCellNumber())
-	  throw string("d2H layer 1 BC");
-	if(InitiateBCMap_Iso(ifd2Hlayer2BC, *_d2Hlayer2BC, atm) != atm.getSsortedGridTotalCellNumber())
-	  throw string("d2H layer 2 BC");
 	if(InitiateBCMap_Iso(ifd2HgroundwaterBC, *_d2HgroundwaterBC, atm) != atm.getSsortedGridTotalCellNumber())
 	  throw string("d2H groundwater BC");
+	if(ctrl.sw_deepGW){
+	if(InitiateBCMap_Iso(ifd2HdeepGWBC, *_d2HdeepGWBC, atm) != atm.getSsortedGridTotalCellNumber())
+	  throw string("d2H deepGW BC");
+	  }
       } catch (string e) {
 	cout << "Error: some sections of the domain were not filled with " << e << "data. " << endl;
 	cout << "Please verify that all the boundary zones in the map are presented in the binary boundary data file " << endl;
@@ -101,21 +107,23 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
       _d18Olayer1BC      = new grid(*bsn.getDEM());
       _d18Olayer2BC      = new grid(*bsn.getDEM());
       _d18OgroundwaterBC = new grid(*bsn.getDEM());
+      _d18OdeepGWBC      = new grid(*bsn.getDEM());
 
       *_d18OsurfaceBC = *bsn.getDEM();
       *_d18Olayer1BC = *bsn.getDEM();
       *_d18Olayer2BC = *bsn.getDEM();
       *_d18OgroundwaterBC = *bsn.getDEM();
+      *_d18OdeepGWBC = *bsn.getDEM();
 
       try{
 	ifd18OsurfaceBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d18OsurfaceBC).c_str(), ios::binary);
 	if(errno!=0) throw ctrl.fn_d18OsurfaceBC;
-	ifd18Olayer1BC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d18Olayer1BC).c_str(), ios::binary);
-	if(errno!=0) throw ctrl.fn_d18Olayer1BC;
-	ifd18Olayer2BC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d18Olayer2BC).c_str(), ios::binary);
-	if(errno!=0) throw ctrl.fn_d18Olayer2BC;
 	ifd18OgroundwaterBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d18OgroundwaterBC).c_str(), ios::binary);
 	if(errno!=0) throw ctrl.fn_d18OgroundwaterBC;
+	if(ctrl.sw_deepGW){
+	ifd18OdeepGWBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d18OdeepGWBC).c_str(), ios::binary);
+	}
+	if(errno!=0) throw ctrl.fn_d18OdeepGWBC;
       } catch (string e){
 	cout << "Dang!!: cannot find/read the " << e << " file: error " << strerror(errno) << endl;
 	throw;
@@ -124,12 +132,12 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
       try{
 	if(InitiateBCMap_Iso(ifd18OsurfaceBC, *_d18OsurfaceBC, atm) != atm.getSsortedGridTotalCellNumber())
 	  throw string("d18O surface BC");
-	if(InitiateBCMap_Iso(ifd18Olayer1BC, *_d18Olayer1BC, atm) != atm.getSsortedGridTotalCellNumber())
-	  throw string("d18O layer 1 BC");
-	if(InitiateBCMap_Iso(ifd18Olayer2BC, *_d18Olayer2BC, atm) != atm.getSsortedGridTotalCellNumber())
-	  throw string("d18O layer 2 BC");
 	if(InitiateBCMap_Iso(ifd18OgroundwaterBC, *_d18OgroundwaterBC, atm) != atm.getSsortedGridTotalCellNumber())
 	  throw string("d18O groundwater BC");
+	if(ctrl.sw_deepGW){
+	if(InitiateBCMap_Iso(ifd18OdeepGWBC, *_d18OdeepGWBC, atm) != atm.getSsortedGridTotalCellNumber())
+	  throw string("d18O deepGW BC");
+	  }
       } catch (string e) {
 	cout << "Error: some sections of the domain were not filled with " << e << "data. " << endl;
 	cout << "Please verify that all the boundary zones in the map are presented in the binary boundary data file " << endl;
@@ -143,21 +151,23 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
       _Agelayer1BC      = new grid(*bsn.getDEM());
       _Agelayer2BC      = new grid(*bsn.getDEM());
       _AgegroundwaterBC = new grid(*bsn.getDEM());
+      _AgedeepGWBC      = new grid(*bsn.getDEM());
 
       *_AgesurfaceBC = *bsn.getDEM();
       *_Agelayer1BC = *bsn.getDEM();
       *_Agelayer2BC = *bsn.getDEM();
       *_AgegroundwaterBC = *bsn.getDEM();
+      *_AgedeepGWBC = *bsn.getDEM();
 
       try{
 	ifAgesurfaceBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_AgesurfaceBC).c_str(), ios::binary);
 	if(errno!=0) throw ctrl.fn_AgesurfaceBC;
-	ifAgelayer1BC.open((ctrl.path_ClimMapsFolder + ctrl.fn_Agelayer1BC).c_str(), ios::binary);
-	if(errno!=0) throw ctrl.fn_Agelayer1BC;
-	ifAgelayer2BC.open((ctrl.path_ClimMapsFolder + ctrl.fn_Agelayer2BC).c_str(), ios::binary);
-	if(errno!=0) throw ctrl.fn_Agelayer2BC;
 	ifAgegroundwaterBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_AgegroundwaterBC).c_str(), ios::binary);
 	if(errno!=0) throw ctrl.fn_AgegroundwaterBC;
+	if(ctrl.sw_deepGW){
+	ifAgedeepGWBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_AgedeepGWBC).c_str(), ios::binary);
+	}
+	if(errno!=0) throw ctrl.fn_AgedeepGWBC;
       } catch (string e){
 	cout << "Dang!!: cannot find/read the " << e << " file: error " << strerror(errno) << endl;
 	throw;
@@ -166,12 +176,12 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
       try{
 	if(InitiateBCMap_Iso(ifd2HsurfaceBC, *_AgesurfaceBC, atm) != atm.getSsortedGridTotalCellNumber())
 	  throw string("Age surface BC");
-	if(InitiateBCMap_Iso(ifAgelayer1BC, *_Agelayer1BC, atm) != atm.getSsortedGridTotalCellNumber())
-	  throw string("Age layer 1 BC");
-	if(InitiateBCMap_Iso(ifAgelayer2BC, *_Agelayer2BC, atm) != atm.getSsortedGridTotalCellNumber())
-	  throw string("Age layer 2 BC");
 	if(InitiateBCMap_Iso(ifAgegroundwaterBC, *_AgegroundwaterBC, atm) != atm.getSsortedGridTotalCellNumber())
 	  throw string("Age groundwater BC");
+	if(ctrl.sw_deepGW){
+	if(InitiateBCMap_Iso(ifAgedeepGWBC, *_AgedeepGWBC, atm) != atm.getSsortedGridTotalCellNumber())
+	  throw string("Age deepGW BC");
+	  }
       } catch (string e) {
 	cout << "Error: some sections of the domain were not filled with " << e << "data. " << endl;
 	cout << "Please verify that all the boundary zones in the map are presented in the binary boundary data file " << endl;
@@ -466,7 +476,10 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
       if(_d2Hlayer2BC)
 	delete _d2Hlayer2BC;
       if(_d2HgroundwaterBC)
-	delete _d2HgroundwaterBC;	          
+	delete _d2HgroundwaterBC;
+      if(_d2HdeepGWBC)
+	delete _d2HdeepGWBC;
+	          
       // Ratios
       if(_d2Hcanopy_sum)
 	delete _d2Hcanopy_sum;
@@ -544,6 +557,9 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
 	delete _d18Olayer2BC;
       if(_d18OgroundwaterBC)
 	delete _d18OgroundwaterBC;
+      if(_d18OdeepGWBC)
+	delete _d18OdeepGWBC;
+
       //Ratios
       if(_d18Ocanopy_sum)
 	delete _d18Ocanopy_sum;
@@ -622,7 +638,10 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
       if(_Agelayer2BC)
 	delete _Agelayer2BC;
       if(_AgegroundwaterBC)
-	delete _AgegroundwaterBC;	    
+	delete _AgegroundwaterBC;
+      if(_AgedeepGWBC)
+	delete _AgedeepGWBC;
+	    
       // Ratio	    
       if(_Agecanopy_sum)
 	delete _Agecanopy_sum;

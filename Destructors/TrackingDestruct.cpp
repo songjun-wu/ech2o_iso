@@ -40,6 +40,31 @@ Tracking::~Tracking(){
     delete _d2Hlayer2BC;
   if(_d2HgroundwaterBC)
     delete _d2HgroundwaterBC;
+  if(_d2HdeepGWBC)
+    delete _d2HdeepGWBC;
+    
+    
+  if(_d18OsurfaceBC)
+    delete _d18OsurfaceBC;
+  if(_d18Olayer1BC)
+    delete _d18Olayer1BC;
+  if(_d18Olayer2BC)
+    delete _d18Olayer2BC;
+  if(_d18OgroundwaterBC)
+    delete _d18OgroundwaterBC;
+  if(_d18OdeepGWBC)
+    delete _d18OdeepGWBC;
+    
+  if(_AgesurfaceBC)
+    delete _AgesurfaceBC;
+  if(_Agelayer1BC)
+    delete _Agelayer1BC;
+  if(_Agelayer2BC)
+    delete _Agelayer2BC;
+  if(_AgegroundwaterBC)
+    delete _AgegroundwaterBC;
+  if(_AgedeepGWBC)
+    delete _AgedeepGWBC;
 
   if(ifd2HsurfaceBC.is_open())
     ifd2HsurfaceBC.close();
@@ -49,6 +74,30 @@ Tracking::~Tracking(){
     ifd2Hlayer2BC.close();
   if(ifd2HgroundwaterBC.is_open())
     ifd2HgroundwaterBC.close();
+  if(ifd2HdeepGWBC.is_open())
+    ifd2HdeepGWBC.close();
+    
+  if(ifd18OsurfaceBC.is_open())
+    ifd18OsurfaceBC.close();
+  if(ifd18Olayer1BC.is_open())
+    ifd18Olayer1BC.close();
+  if(ifd18Olayer2BC.is_open())
+    ifd18Olayer2BC.close();
+  if(ifd18OgroundwaterBC.is_open())
+    ifd18OgroundwaterBC.close();
+  if(ifd18OdeepGWBC.is_open())
+    ifd18OdeepGWBC.close();
+
+  if(ifAgesurfaceBC.is_open())
+    ifAgesurfaceBC.close();
+  if(ifAgelayer1BC.is_open())
+    ifAgelayer1BC.close();
+  if(ifAgelayer2BC.is_open())
+    ifAgelayer2BC.close();
+  if(ifAgegroundwaterBC.is_open())
+    ifAgegroundwaterBC.close();
+  if(ifAgedeepGWBC.is_open())
+    ifAgedeepGWBC.close();
 
   if(_d2Hcanopy_sum)
     delete _d2Hcanopy_sum;

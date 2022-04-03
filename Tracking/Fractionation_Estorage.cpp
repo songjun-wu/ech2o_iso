@@ -69,8 +69,10 @@ int Tracking::Frac_Estorage(Atmosphere &atm, Basin &bsn, Control &ctrl,
   if(issoil){
     if(ctrl.toggle_hs == 0) {             // Just 1
       hs = 1;
+      d1 = bsn.getSoilDepth1()->matrix[r][c];
     } else if (ctrl.toggle_hs == 1) {     // Corrected h for surface temperature and beta
       hs = beta + (1-beta)*ha_p;
+      d1 = bsn.getSoilDepth1()->matrix[r][c];
     } else if (ctrl.toggle_hs == 2) {     // Sorderberg et al. (2012), orginially for dry soils (departs from EcH2O's evaporation conceptualization of evap!)
       th_r = bsn.getSoilMoistR1()->matrix[r][c];
       th_s = bsn.getPorosityL1()->matrix[r][c];

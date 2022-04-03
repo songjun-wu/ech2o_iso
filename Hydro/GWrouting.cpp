@@ -86,7 +86,6 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
     r = _vSortedGrid.cells[j].row;
     c = _vSortedGrid.cells[j].col;
     d = _vSortedGrid.cells[j].dir;
-
     //surface routing stuff
     returnflow = 0;
     Qij1 = _Disch_upstreamBC->matrix[r][c]; 						//[m3/s]

@@ -302,7 +302,7 @@ void Tracking::MixingV_latup(Basin &bsn, Control &ctrl,
         d2Hin= (FinSrf*_d2Hsurface->matrix[r][c] + GWtoChn*_d2Hgroundwater->matrix[r][c] + 
 		         DeepGWtoChn*DeepGW_d2H + _Fd2HLattoChn->matrix[r][c]) / FinSrfChn;
         TracerMixing(bsn,ctrl,chan_store_old,_d2Hchan->matrix[r][c],_d2Hchan->matrix[r][c],
-			 FinSrfChn,d2Hin,ChntoLat,Chnout_d2,1.0,0,r,c);
+			 FinSrfChn,d2Hin,ChntoLat,Chnout_d2,1.0,0,r,c);	 
       }// close if channel mixing
     } // close d2H if statement
     if(ctrl.sw_18O){
