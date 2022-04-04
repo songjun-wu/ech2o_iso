@@ -57,9 +57,9 @@ int main(int argc, char* argv[]) {
 
       SolveTimeStep();
 
-      //CalculateBudgets();
+      CalculateBudgets();
 
-      //Report2Screen();
+      Report2Screen();
 
       // Report time series
       report_time += oControl->dt;
