@@ -15,7 +15,7 @@ else:
     os.system('cp '+parPath+'/ech2o_iso/Release-Linux/ech2o_iso '+localPath+'/ech2o_iso')
     os.chdir(localPath)
     os.system('./ech2o_iso config_debug.ini')
-    os.system('python3 debug.py')
+    #os.system('python3 debug.py')
 
 
 

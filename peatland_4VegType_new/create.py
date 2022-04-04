@@ -53,22 +53,22 @@ os.system('pcrcalc "psi_ae.map = unit.map * 2*1e-1"')
 os.system('pcrcalc "BClambda.map = unit.map * 53*1e-1"')
 
 
-os.system('pcrcalc "KvKh.map = unit.map * 3 * 1e-1"')
+os.system('pcrcalc "KvKh.map = unit.map * 4 * 1e-1"')
 os.system('pcrcalc "theta_r.map = unit.map * 5 * 1e-2"')
 os.system('pcrcalc "Wc.map = unit.map * 7 * 1e-1"')
 os.system('pcrcalc "Wp.map = unit.map * 9"')
 os.system('pcrcalc "soildepth.L1.map = unit.map * 1 * 1e-1"')
 os.system('pcrcalc "soildepth.L2.map = unit.map * 4 * 1e-1"')
-os.system('pcrcalc "soildepth.L3.map = unit.map * 2"')
-os.system('pcrcalc "Keff.map = unit.map * 5 * 1e-4"')
+os.system('pcrcalc "soildepth.L3.map = unit.map * 20 * 1e-1"') # or 2?
+os.system('pcrcalc "Keff.map = unit.map * 1 * 1e-4"')
 
-os.system('pcrcalc "kKsat.map = unit.map * 10"')
-os.system('pcrcalc "poros.map = unit.map * 7 * 1e-1"')
+os.system('pcrcalc "kKsat.map = unit.map * 15 * 1e-2"')  # should be 10?? or 15 * 1e-2
+os.system('pcrcalc "poros.map = unit.map * 75 * 1e-2"')  # 7
 os.system('pcrcalc "kporos.map = unit.map * 8"')
 os.system('pcrcalc "swe.map = unit.map * 0"')
-os.system('pcrcalc "SWC.L1.map = poros.map * 75 * 1e-2"')
-os.system('pcrcalc "SWC.L2.map = poros.map * 75 * 1e-2"')
-os.system('pcrcalc "SWC.L3.map = poros.map * 75 * 1e-2"')
+os.system('pcrcalc "SWC.L1.map = poros.map * 75 * 1e-2"') #0.75 or 0.5
+os.system('pcrcalc "SWC.L2.map = poros.map * 75 * 1e-2"') #0.75
+os.system('pcrcalc "SWC.L3.map = poros.map * 75 * 1e-2"') #0.75
 os.system('pcrcalc "soiltemp.map = unit.map * 10"')
 os.system('pcrcalc "water_temp.map = chanmask.map * 8"')
 os.system('pcrcalc "chanrough.map = chanmask.map * 1"')
