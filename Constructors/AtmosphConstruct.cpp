@@ -48,10 +48,8 @@ Atmosphere::Atmosphere(Control &ctrl){
     _NZns = 0; //set to zero the initial zones in the climate time series files. This is the number of zones in the climate time series
 
     _vSsortedGridTotalCellNumber = 0;
-    #pragma omp parallel for
     for(unsigned int i = 0; i < _nzones; i++){
-      _vSortedGrid[i].cells = SortGrid(_vSortedGrid[i].zone).cells; // fills the vectCells with actual domain cells (no nodata)
-      #pragma omp atomic      
+      _vSortedGrid[i].cells = SortGrid(_vSortedGrid[i].zone).cells; // fills the vectCells with actual domain cells (no nodata)  
       _vSsortedGridTotalCellNumber += _vSortedGrid[i].cells.size();
     }
 
@@ -102,7 +100,7 @@ Atmosphere::Atmosphere(Control &ctrl){
 
 
     try {
-      //      cout << (ctrl.path_ClimMapsFolder + ctrl.fn_Ldown).c_str() << endl;
+            //cout << (ctrl.path_ClimMapsFolder + ctrl.fn_Ldown).c_str() << endl;
       ifLdown.open((ctrl.path_ClimMapsFolder + ctrl.fn_Ldown).c_str(), ios::binary);
       if(errno!=0) throw ctrl.fn_Ldown;  
       ifSdown.open((ctrl.path_ClimMapsFolder + ctrl.fn_Sdown).c_str(), ios::binary);
