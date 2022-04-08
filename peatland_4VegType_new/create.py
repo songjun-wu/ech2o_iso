@@ -68,8 +68,9 @@ os.system('pcrcalc "kporos.map = unit.map * 8"')
 os.system('pcrcalc "swe.map = unit.map * 0"')
 os.system('pcrcalc "SWC.L1.map = poros.map * 75 * 1e-2"') #0.75 or 0.5
 os.system('pcrcalc "SWC.L2.map = poros.map * 75 * 1e-2"') #0.75
-os.system('pcrcalc "SWC.L3.map = poros.map * 75 * 1e-2"') #0.75
-os.system('pcrcalc "soiltemp.map = unit.map * 10"')
+#os.system('pcrcalc "SWC.L3.map = poros.map * 75 * 1e-2"') #0.75
+os.system('pcrcalc "SWC.L3.map = unit.map * 624 * 1e-3"')
+os.system('pcrcalc "soiltemp.map = unit.map * 15"')
 os.system('pcrcalc "water_temp.map = chanmask.map * 8"')
 os.system('pcrcalc "chanrough.map = chanmask.map * 1"')
 

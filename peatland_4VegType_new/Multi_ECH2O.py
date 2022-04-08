@@ -39,7 +39,7 @@ parser = OptionParser()
 # 'forward_runs': runs the model for an ensemble of runs, usually the best configurations from the calibration. Allows to look at observations not used in calibration, e.g. maps
 # 'sensi_morris': performs a Morris sensitivity analysis
 parser.add_option("--mode",dest="mode",metavar="mode",
-                  help="Switch ('calib_sampling','calib_runs','forwards_runs','sensi_morris')")
+                  help="Switch ('calib_sampling','calib_runs','forward_runs','sensi_morris')")
 
 # Configuration file
 parser.add_option("--file",dest="file",metavar="FILE",
