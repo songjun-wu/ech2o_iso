@@ -21,6 +21,14 @@ os.system('asc2map -a --clone ./info/base.map ./info/p2.asc p_2.map')
 os.system('asc2map -a --clone ./info/base.map ./info/p3.asc p_3.map')
 
 
+os.system('pcrcalc "tmpmask0.map = cover(chanmask.map, 0)"')
+os.system('pcrcalc "p_0.map = if(tmpmask0.map>0 then 0 else p_0.map)"')
+os.system('pcrcalc "p_1.map = if(tmpmask0.map>0 then 0 else p_1.map)"')
+os.system('pcrcalc "p_2.map = if(tmpmask0.map>0 then 0 else p_2.map)"')
+os.system('pcrcalc "p_3.map = if(tmpmask0.map>0 then 0 else p_3.map)"')
+os.system('rm tmpmask0.map')
+
+
 os.system('col2map --clone ./info/base.map ./info/inflowMask.txt tmpmask.map')
 os.system('pcrcalc "tmpmask1.map = cover(tmpmask.map, 0)"')
 os.system('pcrcalc "ClimZones.map = tmpmask1.map + unit.map"')
@@ -62,15 +70,15 @@ os.system('pcrcalc "soildepth.L2.map = unit.map * 4 * 1e-1"')
 os.system('pcrcalc "soildepth.L3.map = unit.map * 20 * 1e-1"') # or 2?
 os.system('pcrcalc "Keff.map = unit.map * 1 * 1e-4"')
 
-os.system('pcrcalc "kKsat.map = unit.map * 15 * 1e-2"')  # should be 10?? or 15 * 1e-2
-os.system('pcrcalc "poros.map = unit.map * 75 * 1e-2"')  # 7
+os.system('pcrcalc "kKsat.map = unit.map * 5"')  # should be 10?? or 15 * 1e-2
+os.system('pcrcalc "poros.map = unit.map * 60 * 1e-2"')  # 7
 os.system('pcrcalc "kporos.map = unit.map * 8"')
 os.system('pcrcalc "swe.map = unit.map * 0"')
-os.system('pcrcalc "SWC.L1.map = poros.map * 75 * 1e-2"') #0.75 or 0.5
-os.system('pcrcalc "SWC.L2.map = poros.map * 75 * 1e-2"') #0.75
+os.system('pcrcalc "SWC.L1.map = poros.map * 1"') #0.75 or 0.5
+os.system('pcrcalc "SWC.L2.map = poros.map * 1"') #0.75
 #os.system('pcrcalc "SWC.L3.map = poros.map * 75 * 1e-2"') #0.75
-os.system('pcrcalc "SWC.L3.map = unit.map * 624 * 1e-3"')
-os.system('pcrcalc "soiltemp.map = unit.map * 15"')
+os.system('pcrcalc "SWC.L3.map = poros.map * 1"')
+os.system('pcrcalc "soiltemp.map = unit.map * 10"')
 os.system('pcrcalc "water_temp.map = chanmask.map * 8"')
 os.system('pcrcalc "chanrough.map = chanmask.map * 1"')
 
@@ -79,30 +87,30 @@ os.system('pcrcalc "Kroot.map = unit.map * 10"')
 os.system('pcrcalc "leakance.map = unit.map * 0"')
 
 print('******** Vegetations ********')
-os.system('pcrcalc "age_0.map =  if(p_0.map>0 then unit.map*1 else 0)"')
-os.system('pcrcalc "age_1.map =  if(p_1.map>0 then unit.map*1 else 0)"')
-os.system('pcrcalc "age_2.map =  if(p_2.map>0 then unit.map*1 else 0)"')
-os.system('pcrcalc "age_3.map =  if(p_3.map>0 then unit.map*50 else 0)"')
-os.system('pcrcalc "bas_0.map =  if(p_0.map>0 then unit.map*4*1e-2 else 0)"')
-os.system('pcrcalc "bas_1.map =  if(p_1.map>0 then unit.map*4*1e-2 else 0)"')
-os.system('pcrcalc "bas_2.map =  if(p_2.map>0 then unit.map*4*1e-2 else 0)"')
-os.system('pcrcalc "bas_3.map =  if(p_3.map>0 then unit.map*1*1e-1 else 0)"')
+os.system('pcrcalc "age_0.map =  unit.map*1"')
+os.system('pcrcalc "age_1.map =  unit.map*1"')
+os.system('pcrcalc "age_2.map =  unit.map*1"')
+os.system('pcrcalc "age_3.map =  unit.map*25"')
+os.system('pcrcalc "bas_0.map =  unit.map*5*1e-3"')
+os.system('pcrcalc "bas_1.map =  unit.map*5*1e-3"')
+os.system('pcrcalc "bas_2.map =  unit.map*5*1e-3"')
+os.system('pcrcalc "bas_3.map =  unit.map*5*1e-3"')
 os.system('pcrcalc "lai_0.map =  unit.map"')
 os.system('pcrcalc "lai_1.map =  unit.map"')
 os.system('pcrcalc "lai_2.map =  unit.map"')
 os.system('pcrcalc "lai_3.map =  unit.map"')
-os.system('pcrcalc "hgt_0.map =  unit.map*2*1e-1"')
-os.system('pcrcalc "hgt_1.map =  unit.map*7*1e-1"')
-os.system('pcrcalc "hgt_2.map =  unit.map*7*1e-1"')
-os.system('pcrcalc "hgt_3.map =  unit.map*10"')
-os.system('pcrcalc "ntr_0.map =  if(p_0.map>0 then unit.map*3 else 0)"')
-os.system('pcrcalc "ntr_1.map =  if(p_1.map>0 then unit.map*3 else 0)"')
-os.system('pcrcalc "ntr_2.map =  if(p_2.map>0 then unit.map*3 else 0)"')
-os.system('pcrcalc "ntr_3.map =  if(p_3.map>0 then unit.map*15*1e-2 else 0)"')
-os.system('pcrcalc "root_0.map =  if(p_0.map>0 then unit.map*250 else 0)"')
-os.system('pcrcalc "root_1.map =  if(p_1.map>0 then unit.map*400 else 0)"')
-os.system('pcrcalc "root_2.map =  if(p_2.map>0 then unit.map*400 else 0)"')
-os.system('pcrcalc "root_3.map =  if(p_3.map>0 then unit.map*300 else 0)"')
+os.system('pcrcalc "hgt_0.map =  unit.map*5*1e-1"')
+os.system('pcrcalc "hgt_1.map =  unit.map*15*1e-1"')
+os.system('pcrcalc "hgt_2.map =  unit.map*15*1e-1"')
+os.system('pcrcalc "hgt_3.map =  unit.map*20"')
+os.system('pcrcalc "ntr_0.map =  unit.map*15"')
+os.system('pcrcalc "ntr_1.map =  unit.map*15"')
+os.system('pcrcalc "ntr_2.map =  unit.map*15"')
+os.system('pcrcalc "ntr_3.map =  unit.map*15*1e-2"')
+os.system('pcrcalc "root_0.map =  unit.map*330"')
+os.system('pcrcalc "root_1.map =  unit.map*330"')
+os.system('pcrcalc "root_2.map =  unit.map*330"')
+os.system('pcrcalc "root_3.map =  unit.map*330"')
 
 print('******** Tracking ********')
 os.system('pcrcalc "d2H_snowpack.map = unit.map * -57"')

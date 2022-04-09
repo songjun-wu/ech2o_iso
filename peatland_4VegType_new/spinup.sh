@@ -9,6 +9,7 @@ do
 	./ech2o_iso config_spinup.ini
 	
 	echo "finished run, copying files"
+	"""
 	cp -f ./Outputs/root0_.map   ./Spatial_50m/root_0.map #Report_Root_Mass
 	cp -f ./Outputs/root1_.map   ./Spatial_50m/root_1.map
 	cp -f ./Outputs/root2_.map   ./Spatial_50m/root_2.map
@@ -37,7 +38,7 @@ do
 	cp -f ./Outputs/age1_000.365 ./Spatial_50m/age_1.map
 	cp -f ./Outputs/age2_000.365 ./Spatial_50m/age_2.map
 	cp -f ./Outputs/age3_000.365 ./Spatial_50m/age_3.map
-
+	"""
 	cp -f ./Outputs/SWE00000.365 ./Spatial_50m/swe.map    #Report_SWE
 	cp -f ./Outputs/SWC1_000.365 ./Spatial_50m/SWC.L1.map  #Report_Soil_Water_Content_L1 = 1 
 	cp -f ./Outputs/SWC2_000.365 ./Spatial_50m/SWC.L2.map  #Report_Soil_Water_Content_L2 = 1
