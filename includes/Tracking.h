@@ -332,6 +332,9 @@ class Tracking {
   }
   grid *getd2H_TB2() const {
     return _d2H_TB2;
+  }  
+  grid *getFd2HLattoDeepGW() const {
+    return _Fd2HLattoDeepGW;
   }
   // -------
   

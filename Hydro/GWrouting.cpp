@@ -72,14 +72,18 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
 
   // Reinitialize to zero the fluxes modified earlier / in the previous time step
   _FluxExfilt->reset();
-  //  resetLateralfluxes(ctrl,1);
-  _FluxLattoSrf->reset();
-  _FluxLattoChn->reset();      
-  _FluxLattoGW->reset();
+  resetLateralfluxes(ctrl,1);
+  //_FluxLattoSrf->reset();
+  //_FluxLattoChn->reset();      
+  //_FluxLattoGW->reset();
   if(ctrl.sw_trck){
     resetTrckfluxes(ctrl,1);
     trck.resetFTracerLat(ctrl);
   }
+  
+  //Some tests on missing "reset"
+    //_ReturnL1->reset();
+    //_ReturnL2->reset();
 
   // --------------------------------------------------------------------------------------
   for (unsigned int j = 0; j < _vSortedGrid.cells.size(); j++) {

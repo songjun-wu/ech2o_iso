@@ -3,7 +3,8 @@ import shutil
 
 
 localPath = os.getcwd()
-outputPath = os.getcwd() + '/Spatial_initial'
+#outputPath = os.getcwd() + '/Spatial_initial'
+outputPath = os.getcwd() + '/Spatial_50m'
 dataPath = os.getcwd() + '/gis_peatland/Spatial'
 
 os.chdir(dataPath)
@@ -44,7 +45,7 @@ os.system('pcrcalc "isohyet.map = unit.map * 1"')
 
 print('******** Channel info ********')
 os.system('asc2map -a --clone ./info/base.map ./info/chanwidth.asc chanwidth.map')
-os.system('pcrcalc "chanparam.map=chanmask.map*2*1e-2"')
+os.system('pcrcalc "chanparam.map=chanmask.map*2*1e-1"')
 os.system('pcrcalc "chanmanningn.map=chanmask.map*1"')
 
 
@@ -145,11 +146,19 @@ print('******** New maps! ********')
 os.system('pcrcalc "fcontrea.map = unit.map * 1"')
 os.system('pcrcalc "fImperv.map = unit.map * 0"')
 os.system('pcrcalc "chanlength.map = unit.map * 1"')
-os.system('pcrcalc "chanDeepparam.map = chanparam.map"')
 
-os.system('pcrcalc "GW_DeepStorage.map = unit.map * 1"')
+
+os.system('pcrcalc "GW_DeepStorage.map = unit.map * 3"')
 os.system('pcrcalc "d2H_DeepGW.map = unit.map * -59"')
-os.system('pcrcalc "fActive_DeepGW.map = if(chanmask.map>0 then unit.map*5*1e-1 else 0)"')
+os.system('pcrcalc "chanDeepparam.map = unit.map*5*1e-1"')
+
+os.system('pcrcalc "tmpmask0.map = cover(chanmask.map, 0)"')
+os.system('pcrcalc "fActive_DeepGW.map = if(tmpmask0.map>0 then unit.map*4*1e-1 else 1*1e-1)"')
+os.system('rm tmpmask0.map')
+
+
+
+
 os.system('pcrcalc "KeffTopSoil.map = Keff.map"')
 
 

@@ -94,6 +94,7 @@ int Control::ReadConfigTrck(string confilename /*= "configTrck.ini"*/)
       ConfigTrck.readInto(fn_d2Hsoil2, "init_d2H_soil2");
       ConfigTrck.readInto(fn_d2Hsoil3, "init_d2H_soil3");
       ConfigTrck.readInto(fn_d2Hgroundwater, "init_d2H_groundwater");
+      ConfigTrck.readInto(fn_d2HDeepGW, "init_d2H_DeepGW");
       //ConfigTrck.readInto(fn_d2Hchannel, "init_d2H_channel");
 
       // Report maps
