@@ -296,33 +296,13 @@ void Tracking::MixingV_latup(Basin &bsn, Control &ctrl,
       d2Hsurf = L1toSrf_d2==-1000 ? (ctrl.sw_TPD ? _d2H_MW1->matrix[r][c] : _d2Hsoil1->matrix[r][c]) : L1toSrf_d2;
       TracerMixing(bsn,ctrl,pond_old,_d2Hsurface->matrix[r][c],_d2Hsurface->matrix[r][c],
  			 L1toSrf,d2Hsurf,FinSrf,Srfout_d2,1.0,0,r,c);
-      if(ctrl.sw_channel and bsn.getChannelWidth()->matrix[r][c] > 0){	
-        
+      if(ctrl.sw_channel and bsn.getChannelWidth()->matrix[r][c] > 0){	        
 	_d2HSrftoChn->matrix[r][c] = _d2Hsurface->matrix[r][c];
-	_d2HGWtoChn->matrix[r][c] = _d2Hgroundwater->matrix[r][c];
-	
-	
+	_d2HGWtoChn->matrix[r][c] = _d2Hgroundwater->matrix[r][c];	
         d2Hin= (FinSrf*_d2Hsurface->matrix[r][c] + GWtoChn*_d2Hgroundwater->matrix[r][c] + 
 		         DeepGWtoChn*DeepGW_d2H + _Fd2HLattoChn->matrix[r][c]) / FinSrfChn;
-		         
-	if(r==3&&c==9){
-      cout<<"old volume:  "<<chan_store_old<<endl;
-      cout<<"old tracer:  "<<_d2Hchan->matrix[r][c]<<endl;
-      }  
         TracerMixing(bsn,ctrl,chan_store_old,_d2Hchan->matrix[r][c],_d2Hchan->matrix[r][c],
 			 FinSrfChn,d2Hin,ChntoLat,Chnout_d2,1.0,0,r,c);	
-			       if(r==3&&c==9){
-      cout<<"input volume:  "<<FinSrfChn<<endl;
-      cout<<"input tracer:  "<<d2Hin<<endl;
-      cout<<"output volume:  "<<ChntoLat<<endl;      
-      cout<<"output tracer:  "<<Chnout_d2<<endl;
-      cout<<"new tracer:  "<<_d2Hchan->matrix[r][c]<<endl;
-      cout<<"surface input:  "<<FinSrf<<endl;
-      cout<<"GW input:  "<<GWtoChn<<endl;
-      cout<<"Deep GW input:  "<<DeepGWtoChn<<endl;
-      cout<<"Lat input:  "<<_Fd2HLattoChn->matrix[r][c]<<endl;
-      }
- 
       }// close if channel mixing
     } // close d2H if statement
     if(ctrl.sw_18O){

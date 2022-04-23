@@ -15,6 +15,7 @@ def debug(path, STATION, plotFlag):
     SrftoChn = np.loadtxt(path+'SrftoChn.tab', skiprows=12)[:, STATION] #(m to m/d; *1)
     ChnLatI = np.loadtxt(path+'ChnLatI.tab', skiprows=12)[:, STATION] #(m to m/d; *1)
     GWtoChn = np.loadtxt(path+'GWtoChn.tab', skiprows=12)[:, STATION] #(m to m/d; *1)
+    DeepGWtoChn = np.loadtxt(path+'DeepGWtoChn.tab', skiprows=12)[:, STATION] #(m to m/d; *1)
     streamflow = np.loadtxt(path+'Streamflow.tab', skiprows=12)[:, STATION]*34.56 #(m3/s to m/d; *dt/dx^2, i.e., 34.56)
 
     # Isotopic balance
@@ -28,7 +29,7 @@ def debug(path, STATION, plotFlag):
 
     aspectRatio = 11
     if plotFlag:
-        fig, ax = plt.subplots(5, 4, sharex=True, sharey=False, figsize=(15,6))
+        fig, ax = plt.subplots(6, 4, sharex=True, sharey=False, figsize=(15,6))
         ax[1,0].imshow(SoilMoistureL1.T, aspect=aspectRatio)
         ax[2,0].imshow(SoilMoistureL2.T, aspect=aspectRatio)
         ax[3,0].imshow(GroundWater.T, aspect=aspectRatio)
@@ -37,19 +38,20 @@ def debug(path, STATION, plotFlag):
         ax[1,1].imshow(SrftoChn.T, vmin=0, vmax=0.3, aspect=aspectRatio)
         ax[2,1].imshow(ChnLatI.T, vmin=0, vmax=0.3, aspect=aspectRatio)
         ax[3,1].imshow(GWtoChn.T, vmin=0, vmax=0.3, aspect=aspectRatio)
-        ax[4,1].imshow(streamflow.T, vmin=0, vmax=0.3, aspect=aspectRatio)
+        ax[4,1].imshow(DeepGWtoChn.T, vmin=0, vmax=0.3, aspect=aspectRatio)
+        ax[5,1].imshow(streamflow.T, vmin=0, vmax=0.3, aspect=aspectRatio)
 
         ax[0,2].imshow(d2precip.T, vmin=-80, vmax=-30, aspect=aspectRatio)
         ax[1,2].imshow(d2H_surface.T, vmin=-80, vmax=-30, aspect=aspectRatio)
         ax[2,2].imshow(d2SoilL1.T, vmin=-80, vmax=-30, aspect=aspectRatio)
         ax[3,2].imshow(d2GW.T, vmin=-80, vmax=-30, aspect=aspectRatio)
-        ax[4,2].imshow(d2Chan.T, vmin=-80, vmax=-30, aspect=aspectRatio)
+        ax[5,2].imshow(d2Chan.T, vmin=-80, vmax=-30, aspect=aspectRatio)
         
         ax[0,3].imshow((Precip*d2precip).T, vmin=-80, vmax=0, aspect=aspectRatio)
         ax[1,3].imshow((SrftoChn*d2H_surface).T, vmin=-80, vmax=0, aspect=aspectRatio)
         ax[2,3].imshow((ChnLatI*d2Chan).T, vmin=-80, vmax=0, aspect=aspectRatio)
         ax[3,3].imshow((GWtoChn*d2GW).T, vmin=-80, vmax=0, aspect=aspectRatio)
-        ax[4,3].imshow((streamflow*d2Chan).T, vmin=-80, vmax=0, aspect=aspectRatio)
+        ax[5,3].imshow((streamflow*d2Chan).T, vmin=-80, vmax=0, aspect=aspectRatio)
         plt.savefig('debug.png', dpi=300)
         plt.show()
 

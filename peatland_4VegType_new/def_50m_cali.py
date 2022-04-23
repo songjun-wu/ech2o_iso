@@ -138,14 +138,19 @@ class Paras:
     # ref['SthermalK'] = {'soil':1, 'veg':0, 'log':0, 'file':'soilthermalK', 'min':[0.05,0.05],'max':[0.3,0.3]}
     ref['Sheatcap']  = {'soil':1, 'veg':0, 'log':1, 'file':'soilheatcap',  'min':[1e4,1e4], 'max':[1e8,1e8]}
     ref['albedoS']   = {'soil':1, 'veg':0, 'log':0, 'file':'albedo',       'min':[0.1,0.1], 'max':[0.4,0.4]}
-    # ref['Rugosity']  = {'soil':1, 'veg':0, 'log':0, 'file':'randrough',    'min':[0.01,0.01],'max':[0.2,0.2]}
+    ref['Rugosity']  = {'soil':1, 'veg':0, 'log':0, 'file':'randrough',    'min':[0.01,0.01],'max':[0.2,0.2]}
 
+
+    # - channel evaporation
+    ref['Channel_roughness']= {'soil':0, 'veg':0, 'log':0, 'file':'chanrough',    'min':[0.001],  'max':[15]}    
+    #ref['Water_temperature']= {'soil':0, 'veg':0, 'log':0, 'file':'water_temp',    'min':[0.0001],  'max':[1]}  
+    
     # - uniform channel parameters
     ref['ChanGWSeep']= {'soil':0, 'veg':0, 'log':0, 'file':'chanparam',    'min':[0.001],  'max':[10]}
     ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.1],  'max':[5]}
 
-    #ref['ChanExtraGWSeep']= {'soil':0, 'veg':0, 'log':0, 'file':'chanExtraparam',    'min':[0.001],  'max':[10]}
-    #ref['HydroFrac_ExtraGW']= {'soil':0, 'veg':0, 'log':0, 'file':'ExtraGW_hydroFraction',    'min':[0.001],  'max':[0.1]}
+    ref['channel_deepgw_transfer_param']= {'soil':0, 'veg':0, 'log':0, 'file':'chanDeepparam',    'min':[0.001],  'max':[10]}
+    ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.001],  'max':[1]}
  
     # - vegetation-dependent
     # vegetation state in maps
@@ -182,7 +187,7 @@ class Paras:
     # ref['LeafTurnoverTempStressParam']= {'soil':0,'veg':1, 'log':1,'min':[1e-9,1e-9], 'max':[0.5,0.5]}
     # ref['ColdStressParam']= {'soil':0,'veg':1,'log':0,'min':[-5,-5],   'max':[5,5]}
     # ref['RootTurnoverRate']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-9,1e-9], 'max':[1e-7,1e-7]}
-    ref['MaxCanStorageParam']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-9,1e-9,1e-9,1e-6], 'max':[1e-8,1e-8,1e-8,5e-4]}
+    ref['MaxCanStorageParam']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-12,1e-12,1e-12,1e-12], 'max':[1e-8,1e-8,1e-8,5e-4]}
     ref['Kroot']  = {'soil':0, 'veg':1, 'log':0,'min':[0.1,0.1,0.1,0.1],  'max':[15,15,15,15]}
     # # energy balance
     # ref['albedo']    = {'soil':0, 'veg':1, 'log':0,'min':[0.1,0.1],  'max':[0.25,0.25]}

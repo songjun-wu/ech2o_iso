@@ -45,7 +45,7 @@ os.system('pcrcalc "isohyet.map = unit.map * 1"')
 
 print('******** Channel info ********')
 os.system('asc2map -a --clone ./info/base.map ./info/chanwidth.asc chanwidth.map')
-os.system('pcrcalc "chanparam.map=chanmask.map*2*1e-1"')
+
 os.system('pcrcalc "chanmanningn.map=chanmask.map*1"')
 
 
@@ -57,7 +57,7 @@ os.system('pcrcalc "soilthermalK.map = unit.map * 2 * 1e-1"')
 os.system('pcrcalc "dampdepth.map = unit.map * 2"')
 os.system('pcrcalc "temp_damp.map = unit.map * 10"')
 os.system('pcrcalc "snowmeltCoeff.map = unit.map * 41 * 1e-9"')
-os.system('pcrcalc "randrough.map = unit.map * 5 * 1e-2"')
+os.system('pcrcalc "randrough.map = unit.map * 5"')
 os.system('pcrcalc "psi_ae.map = unit.map * 2*1e-1"')
 os.system('pcrcalc "BClambda.map = unit.map * 53*1e-1"')
 
@@ -80,8 +80,7 @@ os.system('pcrcalc "SWC.L2.map = poros.map * 1"') #0.75
 #os.system('pcrcalc "SWC.L3.map = poros.map * 75 * 1e-2"') #0.75
 os.system('pcrcalc "SWC.L3.map = poros.map * 1"')
 os.system('pcrcalc "soiltemp.map = unit.map * 10"')
-os.system('pcrcalc "water_temp.map = chanmask.map * 8"')
-os.system('pcrcalc "chanrough.map = chanmask.map * 1"')
+
 
 os.system('pcrcalc "streamflow.map = unit.map * 0"')
 os.system('pcrcalc "Kroot.map = unit.map * 10"')
@@ -114,12 +113,12 @@ os.system('pcrcalc "root_2.map =  unit.map*330"')
 os.system('pcrcalc "root_3.map =  unit.map*330"')
 
 print('******** Tracking ********')
-os.system('pcrcalc "d2H_snowpack.map = unit.map * -57"')
-os.system('pcrcalc "d2H_surface.map = unit.map * -57"')
-os.system('pcrcalc "d2H_soilL1.map = unit.map * -57"')
-os.system('pcrcalc "d2H_soilL2.map = unit.map * -57"')
-os.system('pcrcalc "d2H_soilL3.map = unit.map * -57"')
-os.system('pcrcalc "d2H_groundwater.map = unit.map * -57"')
+os.system('pcrcalc "d2H_snowpack.map = unit.map * -60"')
+os.system('pcrcalc "d2H_surface.map = unit.map * -60"')
+os.system('pcrcalc "d2H_soilL1.map = unit.map * -60"')
+os.system('pcrcalc "d2H_soilL2.map = unit.map * -60"')
+os.system('pcrcalc "d2H_soilL3.map = unit.map * -60"')
+os.system('pcrcalc "d2H_groundwater.map = unit.map * -60"')
 
 """
 os.system('pcrcalc "Age_groundwater.map = unit.map * 0"')
@@ -149,16 +148,17 @@ os.system('pcrcalc "chanlength.map = unit.map * 1"')
 
 
 os.system('pcrcalc "GW_DeepStorage.map = unit.map * 3"')
-os.system('pcrcalc "d2H_DeepGW.map = unit.map * -59"')
+os.system('pcrcalc "d2H_DeepGW.map = unit.map * -60"')
 os.system('pcrcalc "chanDeepparam.map = unit.map*5*1e-1"')
 
 os.system('pcrcalc "tmpmask0.map = cover(chanmask.map, 0)"')
 os.system('pcrcalc "fActive_DeepGW.map = if(tmpmask0.map>0 then unit.map*4*1e-1 else 1*1e-1)"')
 os.system('rm tmpmask0.map')
 
+os.system('pcrcalc "water_temp.map = chanmask.map * 0"')
+os.system('pcrcalc "chanrough.map = chanmask.map * 10"')
 
-
-
+os.system('pcrcalc "chanparam.map=chanmask.map*5"')
 os.system('pcrcalc "KeffTopSoil.map = Keff.map"')
 
 

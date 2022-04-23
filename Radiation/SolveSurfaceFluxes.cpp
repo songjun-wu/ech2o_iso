@@ -81,7 +81,7 @@ int Basin::SolveSurfaceFluxes(Atmosphere &atm, Control &ctrl, Tracking &trck) {
   UINT4 nsp;
   REAL8 p;			//fraction of species s
   int bsoil;                    //switch for if bare soil
-  REAL8 BC_deepGW;              //deep groundwater boundary condition
+  //REAL8 BC_deepGW;              //deep groundwater boundary condition
   
   //needed in the water routing routines
   resetBCfluxes(ctrl);
@@ -112,12 +112,12 @@ int Basin::SolveSurfaceFluxes(Atmosphere &atm, Control &ctrl, Tracking &trck) {
         //*****************************************************************************************
 	//--- Set the boundary conditions ---------------------------------------------------------
         //*****************************************************************************************
-	BC_deepGW = (ctrl.sw_deepGW and ctrl.sw_BC) ? _BCdeepgwtr->matrix[r][c] : 0;
+	//BC_deepGW = (ctrl.sw_deepGW and ctrl.sw_BC) ? _BCdeepgwtr->matrix[r][c] : 0;
 	if(ctrl.sw_BC == 1){
-	  if(ctrl.sw_trck){ // if there is tracking
-	    trck.BCupstreamMixing(*this,ctrl,_BCsurface->matrix[r][c],
-				  _BCgroundwater->matrix[r][c], BC_deepGW,_dx,dt,r,c); //TODO update tracking isotopes & deepGW
-	  }
+	  //if(ctrl.sw_trck){ // if there is tracking
+	  //  trck.BCupstreamMixing(*this,ctrl,_BCsurface->matrix[r][c],
+	  //			  _BCgroundwater->matrix[r][c], BC_deepGW,_dx,dt,r,c); //TODO update tracking isotopes & deepGW
+	  //}
 	  _GWupstreamBC->matrix[r][c]     += _BCgroundwater->matrix[r][c];   // [m2.s-1] per unit width
 	  // Surface water is added directly to ponded/channel water rather than flux
 	  if(ctrl.sw_channel && _channelwidth->matrix[r][c]) {

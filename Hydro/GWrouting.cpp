@@ -67,8 +67,10 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
   REAL8 Si1j1 = 0; //storage in channel at the end of time step
   
   REAL8 leak = 0;
+  REAL8 BC_deepGW;              //deep groundwater boundary condition
 
   dtdx = dt / _dx;
+
 
   // Reinitialize to zero the fluxes modified earlier / in the previous time step
   _FluxExfilt->reset();
@@ -80,7 +82,6 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
     resetTrckfluxes(ctrl,1);
     trck.resetFTracerLat(ctrl);
   }
-  
   //Some tests on missing "reset"
     //_ReturnL1->reset();
     //_ReturnL2->reset();
@@ -115,6 +116,24 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
     // ****************************************************************************  
     if (ctrl.sw_reinfilt)
       Infilt_GreenAmpt(ctrl, f, F, theta1, theta2, theta3, ponding, gw, dt, r, c);
+      
+      
+    BC_deepGW = (ctrl.sw_deepGW and ctrl.sw_BC) ? _BCdeepgwtr->matrix[r][c] : 0;
+    
+    if(ctrl.sw_BC == 1){
+       if(ctrl.sw_trck){ // if there is tracking, setup boundary condition of d2hFlux
+	    trck.BCupstreamMixing(*this,ctrl,_BCsurface->matrix[r][c], _BCgroundwater->matrix[r][c], BC_deepGW,_dx,dt,r,c); // moved from solveSurfaceFluxes.cpp
+	  }
+       if(ctrl.sw_channel && _channelwidth->matrix[r][c]) {
+	    _FluxLattoChn->matrix[r][c] += _BCsurface->matrix[r][c] * dt / (_dx * _dx); // [m]
+	  } else {
+	    _FluxLattoSrf->matrix[r][c] += _BCsurface->matrix[r][c] * dt / (_dx * _dx); // [m]
+	  }
+	_FluxLattoGW->matrix[r][c]      += _BCgroundwater->matrix[r][c] * dt/_dx;     // [m]
+	if(ctrl.sw_deepGW){
+	    _FluxLattoDeepGW->matrix[r][c] += _BCdeepgwtr->matrix[r][c] * dt/_dx;// [m]
+	  }
+       }
     
     // ****************************************************************************
     // Always mixes when tracking is on 
@@ -256,7 +275,7 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
 	_dailyDeepGwtrOutput.cells.push_back(cell(r, c, (alpha * Deep_hj1i1 * _dx))); 		//[m3/s]	
     } else {
       lat_ok = 1;
-      _FluxLattoSrf->matrix[rind][cind] += ponding ; 						//[m]
+      _FluxLattoSrf->matrix[rind][cind] += ponding ;						//[m]
       _FluxLattoChn->matrix[rind][cind] += Qk1*dtdx/_dx; 					//[m]
       _FluxLattoGW->matrix[rind][cind] += hj1i1 * alpha * dtdx; 				//[m]
       // Accumulated fluxes

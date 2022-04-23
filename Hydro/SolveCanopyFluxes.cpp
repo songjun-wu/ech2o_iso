@@ -199,9 +199,9 @@ int Basin::SolveCanopyFluxes(Atmosphere &atm, Control &ctrl, Tracking &trck) {
 	
 	if (s == nsp - 1) { //if this is bare ground set D to precip and skip the tree stuff
 	  D = atm.getPrecipitation()->matrix[r][c];
-	  thro(s,0) = 1;//ctrl.sw_2H  ? atm.getd2Hprecip()->matrix[r][c]  : 0.0; 	//throughfall d2H
-	  thro(s,1) = 1;//ctrl.sw_18O ? atm.getd18Oprecip()->matrix[r][c] : 0.0; 	//throughfall d18O
-	  thro(s,2) = 1;//0.0; 							//throughfall age
+	  thro(s,0) = ctrl.sw_2H  ? atm.getd2Hprecip()->matrix[r][c]  : 0.0; 	//throughfall d2H
+	  thro(s,1) = ctrl.sw_18O ? atm.getd18Oprecip()->matrix[r][c] : 0.0; 	//throughfall d18O
+	  thro(s,2) = 0.0; 							//throughfall age
 	  veg_p += 0;
 	} else {
 	  // **************************************************************************************
