@@ -98,7 +98,7 @@ class Data:
 
     # Starting date
     simbeg = datetime(2020,1,1)
-    lsim = 365
+    lsim = 731
     
     # Number of obsrvations points 
     nts = 9
@@ -136,7 +136,7 @@ class Paras:
     # ref['dampdepth'] = {'soil':1, 'veg':0, 'log':0, 'file':'dampdepth',    'min':[0.5,0.5], 'max':[2,2]}
     # ref['tempdamp']  = {'soil':1, 'veg':0, 'log':0, 'file':'temp_damp',    'min':[5,5],   'max':[15,15]}
     # ref['SthermalK'] = {'soil':1, 'veg':0, 'log':0, 'file':'soilthermalK', 'min':[0.05,0.05],'max':[0.3,0.3]}
-    ref['Sheatcap']  = {'soil':1, 'veg':0, 'log':1, 'file':'soilheatcap',  'min':[1e4,1e4], 'max':[1e8,1e8]}
+    ref['Sheatcap']  = {'soil':1, 'veg':0, 'log':1, 'file':'soilheatcap',  'min':[1e-2,1e-2], 'max':[1e8,1e8]}
     ref['albedoS']   = {'soil':1, 'veg':0, 'log':0, 'file':'albedo',       'min':[0.1,0.1], 'max':[0.4,0.4]}
     ref['Rugosity']  = {'soil':1, 'veg':0, 'log':0, 'file':'randrough',    'min':[0.01,0.01],'max':[0.2,0.2]}
 
@@ -151,6 +151,7 @@ class Paras:
 
     ref['channel_deepgw_transfer_param']= {'soil':0, 'veg':0, 'log':0, 'file':'chanDeepparam',    'min':[0.001],  'max':[10]}
     ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.001],  'max':[1]}
+    ref['d2H_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'d2H_DeepGW',    'min':[-65],  'max':[-59]}
  
     # - vegetation-dependent
     # vegetation state in maps
@@ -160,7 +161,7 @@ class Paras:
 #    ref['hgt_Grass'] = {'soil':0, 'veg':0, 'log':0,'min':0.1,  'max':0.5,  'file':'hgt_0'}
 #    ref['Rt_Crops']  = {'soil':0, 'veg':0, 'log':0,'min':100, 'max':1000,'file':'root_0'}
      # # water use
-    ref['gsmax']    = {'soil':0, 'veg':1, 'log':1,'min':[5e-4,5e-4,5e-4,5e-4], 'max':[7e-2,7e-2,7e-2,7e-2]}
+    ref['gsmax']    = {'soil':0, 'veg':1, 'log':1,'min':[5e-5,5e-5,5e-5,5e-5], 'max':[7e-2,7e-2,7e-2,7e-2]}
     # ref['CanopyQuantumEffic']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-7,1e-7], 'max':[1e-5,1e-5]}
     # ref['CanopyQuantumEffic']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-7,1e-7], 'max':[1.5e-2,1.5e-2]}
     # ref['OptimalTemp']      = {'soil':0, 'veg':1, 'log':0,'min':[5,5],    'max':[25,25]}
@@ -172,8 +173,8 @@ class Paras:
     # ref['StemAllocCoef_b']={'soil':0, 'veg':1, 'log':1,'min':[1e-8,1e-8], 'max':[9e-6,9e-6]}
     ref['gs_light_coeff']  = {'soil':0, 'veg':1, 'log':0,'min':[1,1,1,1],    'max':[500,500,500,500]}
     ref['gs_vpd_coeff']    = {'soil':0, 'veg':1, 'log':1,'min':[1e-5,1e-5,1e-5,1e-5], 'max':[1e-2,1e-2,1e-2,1e-2]}
-    ref['gs_psi_d']     = {'soil':0, 'veg':1, 'log':0,'min':[0.01,0.01,0.01,0.01],  'max':[8.5,8.5,8.5,8.5]}
-    ref['gs_psi_c']     = {'soil':0, 'veg':1, 'log':0,'min':[0.5,0.5,0.5,0.5],  'max':[10,10,10,10]}
+    ref['gs_psi_d']     = {'soil':0, 'veg':1, 'log':0,'min':[0.01,0.01,0.01,0.01],  'max':[10, 10, 10, 10]}
+    ref['gs_psi_c']     = {'soil':0, 'veg':1, 'log':0,'min':[0.01,0.01,0.01,0.0],  'max':[10,10,10,10]}
     # ref['WiltingPnt']   = {'soil':0, 'veg':1, 'log':0,'min':[0.01,0.01], 'max':[0.05,0.05]}
     # ref['SpecificLeafArea']       = {'soil':0, 'veg':1, 'log':1,'min':[1e-5,1e-5], 'max':[5e-2,5e-2]}
     # ref['SpecificRootArea']       = {'soil':0, 'veg':1, 'log':1,'min':[1e-5,1e-5], 'max':[5e-2,5e-2]}
@@ -187,7 +188,7 @@ class Paras:
     # ref['LeafTurnoverTempStressParam']= {'soil':0,'veg':1, 'log':1,'min':[1e-9,1e-9], 'max':[0.5,0.5]}
     # ref['ColdStressParam']= {'soil':0,'veg':1,'log':0,'min':[-5,-5],   'max':[5,5]}
     # ref['RootTurnoverRate']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-9,1e-9], 'max':[1e-7,1e-7]}
-    ref['MaxCanStorageParam']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-12,1e-12,1e-12,1e-12], 'max':[1e-8,1e-8,1e-8,5e-4]}
+    ref['MaxCanStorageParam']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-12,1e-12,1e-12,1e-12], 'max':[1e-5,1e-5,1e-5,1e-3]}
     ref['Kroot']  = {'soil':0, 'veg':1, 'log':0,'min':[0.1,0.1,0.1,0.1],  'max':[15,15,15,15]}
     # # energy balance
     # ref['albedo']    = {'soil':0, 'veg':1, 'log':0,'min':[0.1,0.1],  'max':[0.25,0.25]}

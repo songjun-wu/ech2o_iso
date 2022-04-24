@@ -23,10 +23,10 @@ os.system('asc2map -a --clone ./info/base.map ./info/p3.asc p_3.map')
 
 
 os.system('pcrcalc "tmpmask0.map = cover(chanmask.map, 0)"')
-os.system('pcrcalc "p_0.map = if(tmpmask0.map>0 then 0 else p_0.map)"')
-os.system('pcrcalc "p_1.map = if(tmpmask0.map>0 then 0 else p_1.map)"')
-os.system('pcrcalc "p_2.map = if(tmpmask0.map>0 then 0 else p_2.map)"')
-os.system('pcrcalc "p_3.map = if(tmpmask0.map>0 then 0 else p_3.map)"')
+os.system('pcrcalc "p_0.map = if(tmpmask0.map>0 then p_0.map*2*1e-1 else p_0.map)"')
+os.system('pcrcalc "p_1.map = if(tmpmask0.map>0 then p_1.map*2*1e-1 else p_1.map)"')
+os.system('pcrcalc "p_2.map = if(tmpmask0.map>0 then p_2.map*2*1e-1 else p_2.map)"')
+os.system('pcrcalc "p_3.map = if(tmpmask0.map>0 then p_3.map*2*1e-1 else p_3.map)"')
 os.system('rm tmpmask0.map')
 
 
@@ -35,7 +35,7 @@ os.system('pcrcalc "tmpmask1.map = cover(tmpmask.map, 0)"')
 os.system('pcrcalc "ClimZones.map = tmpmask1.map + unit.map"')
 os.system('rm tmpmask.map tmpmask1.map')
 
-os.system('col2map --clone ./info/base.map ./info/swGaugeMask.txt Tsmask.map')
+os.system('col2map --clone ./info/base.map ./info/GaugeMask_swgw.txt Tsmask.map')
 
 
 os.system('pcrcalc "unit.map = DEM.map/DEM.map"')
