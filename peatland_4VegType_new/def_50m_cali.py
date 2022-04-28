@@ -43,11 +43,13 @@ class Site:
 class Data:  
 
     obsdir = './Outputs/Data/'
+    sim_chan = [1,2,4,6,8,10,11,12,13]
+    sim_gw = [3,5,7,9,15,14]
     
     # -- Observations used
     obs = {}
     # Soil Waters Blue Water Storage and Fluxes
-    obs['OutletDischarge']       = {'sim_file':'Streamflow.tab' ,'sim_pts':[1,2,3,4,5,6,7,8,9],'conv':1,'type':'Ts'}
+    obs['OutletDischarge']       = {'sim_file':'Streamflow.tab' ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
     # obs['SubsurfaceR']  = {'sim_file':'GWLatO.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
     # obs['OverlandR']    = {'sim_file':'SrfLatO.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
     #obs['SMC-L1']       = {'sim_file':'SoilMoistureL1.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
@@ -80,12 +82,13 @@ class Data:
     # Isotopic values of interest
     # obs['d18O-Outletsurface']   = {'sim_file':'d18O_surface.tab'   ,'sim_pts':1,'conv':1,'type':'Ts'}
 
-    obs['d2H-chan']   = {'sim_file':'d2H_chan.tab'     ,'sim_pts':[1,2,3,4,5,6,7,8,9],'conv':1,'type':'Ts'}
+    obs['d2H-chan']   = {'sim_file':'d2H_chan.tab'     ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
     # obs['d2H-Outletsurface']   = {'sim_file':'d2H_surface.tab'     ,'sim_pts':1,'conv':1,'type':'Ts'}
     # obs['d2H-surface']   = {'sim_file':'d2H_surface.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
     # obs['d2H-Soil-L1']   = {'sim_file':'d2H_soilL1.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
     # obs['d2H-Soil-L2']   = {'sim_file':'d2H_soilL2.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
-    # obs['d2H-GW']   = {'sim_file':'d2H_groundwater.tab'     ,'sim_pts':3,'conv':1,'type':'Ts'}
+    obs['d2H-Soil-L3']   = {'sim_file':'d2H_soilL3.tab'     ,'sim_pts':sim_gw,'conv':1,'type':'Ts'}
+    #  obs['d2H-GW']   = {'sim_file':'d2H_groundwater.tab'     ,'sim_pts':sim_gw,'conv':1,'type':'Ts'}
     # obs['d2H-ExtraGW']   = {'sim_file':'d2H_ExtraGWOut.tab'     ,'sim_pts':3,'conv':1,'type':'Ts'}
     # obs['Age-Outletsurface']   = {'sim_file':'Age_surface.tab'     ,'sim_pts':1,'conv':1,'type':'Ts'}
     # obs['Age-surface']   = {'sim_file':'Age_surface.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
@@ -101,8 +104,8 @@ class Data:
     lsim = 731
     
     # Number of obsrvations points 
-    nts = 9
-    sim_order = [1,2,3,4,5,6,7,8,9]
+    nts = 15
+    sim_order = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 
 # ==============================================================================
 # Parameters that are optimized
@@ -147,7 +150,7 @@ class Paras:
     
     # - uniform channel parameters
     ref['ChanGWSeep']= {'soil':0, 'veg':0, 'log':0, 'file':'chanparam',    'min':[0.001],  'max':[10]}
-    ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.1],  'max':[5]}
+    ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.1],  'max':[150]}
 
     ref['channel_deepgw_transfer_param']= {'soil':0, 'veg':0, 'log':0, 'file':'chanDeepparam',    'min':[0.001],  'max':[10]}
     ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.001],  'max':[1]}
