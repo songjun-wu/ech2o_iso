@@ -203,6 +203,14 @@ int Basin::SolveCanopyFluxes(Atmosphere &atm, Control &ctrl, Tracking &trck) {
 	  thro(s,1) = ctrl.sw_18O ? atm.getd18Oprecip()->matrix[r][c] : 0.0; 	//throughfall d18O
 	  thro(s,2) = 0.0; 							//throughfall age
 	  veg_p += 0;
+	  canopyp.row(s)  	= canopy.row(s) *  p;          	//Canopy Storage
+	  throp.row(s)          = thro.row(s) * (D * p * dt);   //throughfall
+	  evapTp.row(s) 	= evapT.row(s) * p; 		//transpiration
+	  evapT_f.row(s) 	= evapT.row(s) * (p * transp); 	//transpiration
+	  evapTVp.row(s)	= evapTV.row(s) * p; 		//Transp vapour
+	  evapTV_f.row(s)       = evapTV.row(s) * (p * transp); //Transp vapour
+	  evapIp.row(s) 	= evapI.row(s) * p; 		//Int E vapour
+	  evapI_f.row(s) 	= evapI.row(s) * (p * evap);	//Int E vapour
 	} else {
 	  // **************************************************************************************
           // --- Solve Canopy Energy Balance-------------------------------------------------------
