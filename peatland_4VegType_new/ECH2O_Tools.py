@@ -59,7 +59,7 @@ def gen_paras(Opti, Config):
         for i in range(Opti.nvar):
             # Log transform where needed
             if Opti.log[i]==1:                
-                tmp = 10**(mat[i]*np.log10(Opti.max[i]/Opti.min[i])+np.log10(Opti.min[i]))
+                tmp = 10**(mat[i]*np.log10(Opti.max[i]/Opti.max[i])+np.log10(Opti.min[i]))
             else:
                 tmp = mat[i]*(Opti.max[i]-Opti.min[i]) + Opti.min[i]
                 
@@ -418,7 +418,7 @@ def manage_outputs(Data, Opti, Config, it):
 
             # Shave off the transient part (if any)
             if Config.trimB > 1:
-                tmp = tmp[Config.trimB-1:Config.trimB-1+Config.trimL]
+                tmp = tmp[:,Config.trimB-1:Config.trimB-1+Config.trimL]
 
             # export multiple points, modified by Songjun 
             #with open(Data.obs[oname]['sim_hist'],'a') as f_out:

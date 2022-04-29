@@ -15,7 +15,7 @@ python3 Multi_ECH2O.py  --mode calib_sampling  --file def_50m_cali.py --outdir o
 
 
 # calibration runs
-python3 Multi_ECH2O.py  --mode calib_runs --file def_50m_cali.py --outdir outputs.1 --ncpu 1 --Resol 50  --exe ech2o_iso --cfg config_cali --isTrck 1 --nthreads 1
+python3 Multi_ECH2O.py  --mode calib_runs --file def_50m_cali.py --outdir outputs.1 --ncpu 1 --Resol 50  --exe ech2o_iso --cfg config_cali --isTrck 1 --nthreads 4  --trimB 366 --trimL 731
 
 
 

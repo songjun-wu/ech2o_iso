@@ -20,9 +20,8 @@
 ./asc2c "BCdeepgroundwater.txt" "BCdeepgroundwater.bin"
 
 ./asc2c "BCd2Hsurface.txt" "BCd2Hsurface.bin"
-./asc2c "BCd2Hlayer1.txt" "BCd2Hlayer1.bin"
-./asc2c "BCd2Hlayer2.txt" "BCd2Hlayer2.bin"
 ./asc2c "BCd2Hgroundwater.txt" "BCd2Hgroundwater.bin"
+./asc2c "BCd2Hdeepgroundwater.txt" "BCd2Hdeepgroundwater.bin"
 
 ./asc2c "Height_0.txt" "Height_0.bin"
 ./asc2c "Height_1.txt" "Height_1.bin"
@@ -30,6 +29,6 @@
 ./asc2c "Height_3.txt" "Height_3.bin"
 
 
-cp ../Spatial/ClimZones.map "ClimZones.map"
-cp ../Spatial/isohyet.map "isohyet.map"
+cp ../Spatial_50m/ClimZones.map "ClimZones.map"
+cp ../Spatial_50m/isohyet.map "isohyet.map"
 

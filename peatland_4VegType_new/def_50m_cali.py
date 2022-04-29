@@ -100,8 +100,8 @@ class Data:
     # -- Simulations outputs
 
     # Starting date
-    simbeg = datetime(2020,1,1)
-    lsim = 731
+    simbeg = datetime(2019,1,1)
+    lsim = 1096
     
     # Number of obsrvations points 
     nts = 15
@@ -123,19 +123,19 @@ class Paras:
 
     # ref['Depth_1']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L1','min':[0.05,0.05],'max':[0.25,0.25]}
     # ref['Depth_2']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L2','min':[0.05,0.05],'max':[0.5,0.5]}
-    ref['Depth_3']     = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L3',    'min':[1], 'max':[3]}
+    ref['Depth_3']     = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L3',    'min':[0.5], 'max':[8]}
     ref['Porosity']  = {'soil':1, 'veg':0, 'log':0, 'file':'poros',        'min':[0.4,0.4],'max':[0.7,0.7]}
     ref['Ktop']    = {'soil':1, 'veg':0, 'log':1, 'file':'Keff',         'min':[1e-6,1e-6],'max':[1e-3,1e-3]}
-    ref['Anisotropy']= {'soil':1, 'veg':0, 'log':1, 'file':'KvKh',         'min':[1e-4,1e-4],'max':[0.5,0.5]}
+    ref['Anisotropy']= {'soil':1, 'veg':0, 'log':1, 'file':'KvKh',         'min':[1e-2,1e-2],'max':[0.5,0.5]}
     ref['BClambda']  = {'soil':1, 'veg':0, 'log':0, 'file':'BClambda',     'min':[2,2], 'max':[12,12]}
-    ref['PsiAE']     = {'soil':1, 'veg':0, 'log':0, 'file':'psi_ae',       'min':[0.01,0.01],'max':[0.8,0.8]}
+    ref['PsiAE']     = {'soil':1, 'veg':0, 'log':0, 'file':'psi_ae',       'min':[0.01,0.01],'max':[1.2,1.2]}
     # ref['SMresidual']= {'soil':1, 'veg':0, 'log':0, 'file':'theta_r',      'min':[0.01,0.01],'max':[0.05,0.05]}
-    ref['kKexp']     = {'soil':1, 'veg':0, 'log':0, 'file':'kKsat',       'min':[0.1,0.1],'max':[15,15]} #yangx--changed "log" from 1 to 0
-    ref['kPorosity'] = {'soil':1, 'veg':0, 'log':0, 'file':'kporos',       'min':[2,2],   'max':[10,10]}
+    #ref['kKexp']     = {'soil':1, 'veg':0, 'log':0, 'file':'kKsat',       'min':[0.1,0.1],'max':[15,15]} #yangx--changed "log" from 1 to 0
+    #ref['kPorosity'] = {'soil':1, 'veg':0, 'log':0, 'file':'kporos',       'min':[2,2],   'max':[10,10]}
     #ref['Wc']        = {'soil':1, 'veg':0, 'log':0, 'file':'Wc',           'min':[0.5,0.5], 'max':[0.7,0.7]}
     #ref['Wp']        = {'soil':1, 'veg':0, 'log':0, 'file':'Wp',           'min':[3,3],   'max':[12,12]}
     ref['snowmeltCo']= {'soil':1, 'veg':0, 'log':1, 'file':'snowmeltCoeff','min':[1e-9,1e-9],'max':[2e-7,2e-7]}
-    ref['leakance']  = {'soil':1, 'veg':0, 'log':1, 'file':'leakance',     'min':[1e-6,1e-6],'max':[1e-2,1e-2]}
+    ref['leakance']  = {'soil':1, 'veg':0, 'log':1, 'file':'leakance',     'min':[1e-7,1e-7],'max':[1e-1,1e-1]}
     # ref['dampdepth'] = {'soil':1, 'veg':0, 'log':0, 'file':'dampdepth',    'min':[0.5,0.5], 'max':[2,2]}
     # ref['tempdamp']  = {'soil':1, 'veg':0, 'log':0, 'file':'temp_damp',    'min':[5,5],   'max':[15,15]}
     # ref['SthermalK'] = {'soil':1, 'veg':0, 'log':0, 'file':'soilthermalK', 'min':[0.05,0.05],'max':[0.3,0.3]}
@@ -145,7 +145,7 @@ class Paras:
 
 
     # - channel evaporation
-    ref['Channel_roughness']= {'soil':0, 'veg':0, 'log':0, 'file':'chanrough',    'min':[0.001],  'max':[15]}    
+    ref['Channel_roughness']= {'soil':0, 'veg':0, 'log':0, 'file':'chanrough',    'min':[0.001],  'max':[30]}    
     #ref['Water_temperature']= {'soil':0, 'veg':0, 'log':0, 'file':'water_temp',    'min':[0.0001],  'max':[1]}  
     
     # - uniform channel parameters
@@ -164,7 +164,7 @@ class Paras:
 #    ref['hgt_Grass'] = {'soil':0, 'veg':0, 'log':0,'min':0.1,  'max':0.5,  'file':'hgt_0'}
 #    ref['Rt_Crops']  = {'soil':0, 'veg':0, 'log':0,'min':100, 'max':1000,'file':'root_0'}
      # # water use
-    ref['gsmax']    = {'soil':0, 'veg':1, 'log':1,'min':[5e-5,5e-5,5e-5,5e-5], 'max':[7e-2,7e-2,7e-2,7e-2]}
+    ref['gsmax']    = {'soil':0, 'veg':1, 'log':1,'min':[1e-5,1e-5,1e-5,1e-5], 'max':[7e-2,7e-2,7e-2,7e-2]}
     # ref['CanopyQuantumEffic']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-7,1e-7], 'max':[1e-5,1e-5]}
     # ref['CanopyQuantumEffic']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-7,1e-7], 'max':[1.5e-2,1.5e-2]}
     # ref['OptimalTemp']      = {'soil':0, 'veg':1, 'log':0,'min':[5,5],    'max':[25,25]}
@@ -175,9 +175,9 @@ class Paras:
     # ref['StemAllocCoef_a']={'soil':0, 'veg':1, 'log':0,'min':[2,2],    'max':[4,4]}
     # ref['StemAllocCoef_b']={'soil':0, 'veg':1, 'log':1,'min':[1e-8,1e-8], 'max':[9e-6,9e-6]}
     ref['gs_light_coeff']  = {'soil':0, 'veg':1, 'log':0,'min':[1,1,1,1],    'max':[500,500,500,500]}
-    ref['gs_vpd_coeff']    = {'soil':0, 'veg':1, 'log':1,'min':[1e-5,1e-5,1e-5,1e-5], 'max':[1e-2,1e-2,1e-2,1e-2]}
-    ref['gs_psi_d']     = {'soil':0, 'veg':1, 'log':0,'min':[0.01,0.01,0.01,0.01],  'max':[10, 10, 10, 10]}
-    ref['gs_psi_c']     = {'soil':0, 'veg':1, 'log':0,'min':[0.01,0.01,0.01,0.0],  'max':[10,10,10,10]}
+    ref['gs_vpd_coeff']    = {'soil':0, 'veg':1, 'log':1,'min':[1e-6,1e-6,1e-6,1e-6], 'max':[1e-2,1e-2,1e-2,1e-2]}
+    ref['gs_psi_d']     = {'soil':0, 'veg':1, 'log':0,'min':[5,5,5,5],  'max':[20, 20, 20, 20]}
+    ref['gs_psi_c']     = {'soil':0, 'veg':1, 'log':1,'min':[0.01,0.01,0.01,0.01],  'max':[4,4,4,4]}
     # ref['WiltingPnt']   = {'soil':0, 'veg':1, 'log':0,'min':[0.01,0.01], 'max':[0.05,0.05]}
     # ref['SpecificLeafArea']       = {'soil':0, 'veg':1, 'log':1,'min':[1e-5,1e-5], 'max':[5e-2,5e-2]}
     # ref['SpecificRootArea']       = {'soil':0, 'veg':1, 'log':1,'min':[1e-5,1e-5], 'max':[5e-2,5e-2]}
@@ -191,7 +191,7 @@ class Paras:
     # ref['LeafTurnoverTempStressParam']= {'soil':0,'veg':1, 'log':1,'min':[1e-9,1e-9], 'max':[0.5,0.5]}
     # ref['ColdStressParam']= {'soil':0,'veg':1,'log':0,'min':[-5,-5],   'max':[5,5]}
     # ref['RootTurnoverRate']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-9,1e-9], 'max':[1e-7,1e-7]}
-    ref['MaxCanStorageParam']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-12,1e-12,1e-12,1e-12], 'max':[1e-5,1e-5,1e-5,1e-3]}
+    ref['MaxCanStorageParam']   = {'soil':0, 'veg':1, 'log':1,'min':[1e-12,1e-12,1e-12,1e-8], 'max':[1e-5,1e-5,1e-5,6e-3]}
     ref['Kroot']  = {'soil':0, 'veg':1, 'log':0,'min':[0.1,0.1,0.1,0.1],  'max':[15,15,15,15]}
     # # energy balance
     # ref['albedo']    = {'soil':0, 'veg':1, 'log':0,'min':[0.1,0.1],  'max':[0.25,0.25]}

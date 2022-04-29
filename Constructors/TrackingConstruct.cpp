@@ -78,7 +78,7 @@ Tracking::Tracking(Control &ctrl, Basin &bsn, Atmosphere &atm)
 	if(errno!=0) throw ctrl.fn_d2HgroundwaterBC;
 	if(ctrl.sw_deepGW){
 	ifd2HdeepGWBC.open((ctrl.path_ClimMapsFolder + ctrl.fn_d2HdeepGWBC).c_str(), ios::binary);
-	if(errno!=0) throw ctrl.fn_d2HgroundwaterBC;
+	if(errno!=0) throw ctrl.fn_d2HdeepGWBC;
 	}
       } catch (string e){
 	cout << "Dang!!: cannot find/read the " << e << " file: error " << strerror(errno) << endl;
