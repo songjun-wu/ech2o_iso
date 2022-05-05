@@ -59,7 +59,7 @@ def gen_paras(Opti, Config):
         for i in range(Opti.nvar):
             # Log transform where needed
             if Opti.log[i]==1:                
-                tmp = 10**(mat[i]*np.log10(Opti.max[i]/Opti.max[i])+np.log10(Opti.min[i]))
+                tmp = 10**(mat[i]*np.log10(Opti.max[i]/Opti.min[i])+np.log10(Opti.min[i]))
             else:
                 tmp = mat[i]*(Opti.max[i]-Opti.min[i]) + Opti.min[i]
                 

@@ -17,7 +17,7 @@ class Opti:
     PATH_EXEC = 'setup_all'   
 
     # Number of iterations
-    nit = 1000
+    nit = 300
 
     # Take into account bare rock? (limiting soil evap)
     simRock = 0
@@ -121,9 +121,9 @@ class Paras:
 
     # - soil-dependent
 
-    # ref['Depth_1']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L1','min':[0.05,0.05],'max':[0.25,0.25]}
-    # ref['Depth_2']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L2','min':[0.05,0.05],'max':[0.5,0.5]}
-    ref['Depth_3']     = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L3',    'min':[0.5], 'max':[8]}
+    ref['Depth_1']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L1','min':[0.05],'max':[0.3]}
+    ref['Depth_2']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L2','min':[0.3],'max':[0.5]}
+    ref['Depth_3']     = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L3',    'min':[1.3], 'max':[5]}
     ref['Porosity']  = {'soil':1, 'veg':0, 'log':0, 'file':'poros',        'min':[0.4,0.4],'max':[0.7,0.7]}
     ref['Ktop']    = {'soil':1, 'veg':0, 'log':1, 'file':'Keff',         'min':[1e-6,1e-6],'max':[1e-3,1e-3]}
     ref['Anisotropy']= {'soil':1, 'veg':0, 'log':1, 'file':'KvKh',         'min':[1e-2,1e-2],'max':[0.5,0.5]}

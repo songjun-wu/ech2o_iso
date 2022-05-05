@@ -156,6 +156,7 @@ int Basin::ChannelEvaporation(Atmosphere &atm,
     }while(fabs(Tw1 - Tw) > 0.00001 && k < MAX_ITER);
     if (k>=MAX_ITER){
       std::cout << "WARNING: non-convergence in channel energy balance at cell row: " << r << " col: " << c << " closure err: " << (Tw1 - Tw) << endl;
+      Tw1 = Tw = _Temp_w->matrix[r][c] = Tw_old;
     }
     // ----------------------------------------------------------------------------
     // Temperature correction and update
@@ -186,6 +187,8 @@ int Basin::ChannelEvaporation(Atmosphere &atm,
   if( (-LE)>0 ) { //only evaporation if LE is negative
     evap = std::min<REAL8>(1/ra_LE , -LE/(rho_w*lambda));
     evap = (chan_store < evap * dt) ? chan_store/dt : evap;
+  } else {
+    evap = 0;
   }
   chan_store -= evap * dt;
   _chan_store->matrix[r][c] = chan_store;

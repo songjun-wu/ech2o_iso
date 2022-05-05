@@ -290,8 +290,8 @@ if Config.mode == 'sensi_morris':
 if Config.runECH2O == 1:
     # -- Execution command
     if options.exe != None:
-        if len(glob.glob(options.exe))==0:
-            sys.exit('The user provided EXEC file was not found: '+options.exe)
+        #if len(glob.glob(options.exe))==0:
+        #    sys.exit('The user provided EXEC file was not found: '+options.exe)
         exe_ech2o = options.exe
         print('The user provided EXEC file is: '+options.exe)
 
@@ -429,7 +429,7 @@ if Config.runECH2O == 1:
     # -- Symbolic link to executable
     if len(glob.glob(os.path.join(Config.PATH_OUT,exe_ech2o))) != 0:
         os.system('rm '+os.path.join(Config.PATH_OUT,exe_ech2o))
-    os.symlink(os.path.join(Config.PATH_MAIN, exe_ech2o) , os.path.join(Config.PATH_OUT,exe_ech2o))
+    os.symlink(os.path.join('/home/wusongj/tmp/', exe_ech2o) , os.path.join(Config.PATH_OUT,exe_ech2o))
 
     # ===
     # -- Copy config files (on users even if there's scratch, for debugging)
