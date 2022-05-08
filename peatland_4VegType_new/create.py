@@ -45,6 +45,7 @@ os.system('pcrcalc "isohyet.map = unit.map * 1"')
 
 print('******** Channel info ********')
 os.system('asc2map -a --clone ./info/base.map ./info/chanwidth.asc chanwidth.map')
+os.system('asc2map -a --clone ./info/base.map ./info/chandepth.asc chandepth.map')
 
 os.system('pcrcalc "chanmanningn.map=chanmask.map*1"')
 
@@ -144,7 +145,7 @@ os.system('pcrcalc "dD_surface.map = unit.map * -8"')
 print('******** New maps! ********')
 os.system('pcrcalc "fcontrea.map = unit.map * 1"')
 os.system('pcrcalc "fImperv.map = unit.map * 0"')
-os.system('pcrcalc "chanlength.map = unit.map * 1"')
+os.system('pcrcalc "chanlength.map = unit.map * 50"')
 
 
 os.system('pcrcalc "GW_DeepStorage.map = unit.map * 3"')

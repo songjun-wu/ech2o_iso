@@ -73,6 +73,8 @@ class Basin {
   // BC data file handles
   ifstream ifBCsurface, ifBCgroundwater, ifBCdeepgwtr;
   grid *_BCsurface, *_BCgroundwater, *_BCdeepgwtr;
+  ifstream ifdeepGWlvl;
+  grid *_deepGWlvl;
   //-------------------------------------------------------------------------------------
 
   /*Spatial properties of the basin*/
@@ -116,6 +118,8 @@ class Basin {
   grid *_slope; //slope in mm-1
   grid *_ttarea; // areal proportion for each grid cell 
   grid *_channellength; //channel length in m. 0 if no channel
+
+  grid *_channeldepth; // channel depth in m
 
   grid *_dampdepth; // soil depth at which there is no diurnal temperature variation
   grid *_Temp_d; //temperature at damping depth

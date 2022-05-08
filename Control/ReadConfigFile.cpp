@@ -72,6 +72,7 @@ int Control::ReadConfigFile(string confilename /*= "config.ini"*/)
     sw_anthr_heat = Config.read<bool>("Anthropogenic_heat");
     sw_intercept = Config.read<bool>("Interception_proportion");
     sw_deepGW = Config.read<bool>("DeepGW_Storage"); 
+    sw_deepGWspatioTemporal = Config.read<bool>("SpatioTemporal_DeepGWRecharge");
 
     // Vegetation dynamics 
     toggle_veg_dyn = Config.read<int>("Vegetation_dynamics");
@@ -93,8 +94,14 @@ int Control::ReadConfigFile(string confilename /*= "config.ini"*/)
     if(sw_BC){
       Config.readInto(fn_BCsurface, "TimeSeries_BC_Surface");
       Config.readInto(fn_BCgroundwater, "TimeSeries_BC_Groundwater");
-      if(sw_deepGW)
-	Config.readInto(fn_BCdeepgwtr,"TimeSeries_BC_DeepGW");
+      if(sw_deepGW){
+	      Config.readInto(fn_BCdeepgwtr,"TimeSeries_BC_DeepGW");
+      }
+    }
+
+    if(sw_deepGWspatioTemporal){
+      Config.readInto(fn_deepGWlvl,"DeepGWlvl");
+      deepGWrechargeWeight = Config.read<float>("DeepGWrechargeWeight"); 
     }
 
     // Soil properties with depth
@@ -221,8 +228,11 @@ int Control::ReadConfigFile(string confilename /*= "config.ini"*/)
       Config.readInto(fn_chdeepgwparam, "channel_deepgw_transfer_param");
       Config.readInto(fn_deepGW, "Groundwater_DeepStorage");
       Config.readInto(fn_hydro_deepGW, "Fraction_Hydroactive_DeepGW");
+      if(sw_deepGWspatioTemporal){
+        Config.readInto(fn_chdepth, "channel_depth");
     }
-
+    }
+    
     Config.readInto(fn_paramtable, "Species_Parameters");
 
     if(!ForestStateVarsInputType.compare("tables")){

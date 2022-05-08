@@ -61,6 +61,33 @@ Basin::Basin(Control &ctrl, Atmosphere &atm)
     _BCsurface     = NULL;
     _BCgroundwater = NULL;
     _BCdeepgwtr    = NULL;
+    _deepGWlvl     = NULL;
+
+    if(ctrl.sw_deepGW){
+      if(ctrl.sw_deepGWspatioTemporal){
+        errno = 0;
+        _deepGWlvl = new grid(*_DEM);
+        *_deepGWlvl = *_DEM;
+        try{
+          ifdeepGWlvl.open((ctrl.path_ClimMapsFolder + ctrl.fn_deepGWlvl).c_str(),ios::binary);
+          if(errno!=0) throw ctrl.fn_deepGWlvl;
+        } catch (string e){
+	cout << "Dang!!: cannot find/read the " << e << " file: error " << strerror(errno) << endl;
+	throw;
+      }
+
+      try{
+	if(InitiateBCMap(ifdeepGWlvl, *_deepGWlvl, atm) != atm.getSsortedGridTotalCellNumber())
+	  throw string("deepGWlvl");
+      } catch (string e) {
+	cout << "Error: some sections of the domain were not filled with " << e << " data." << endl;
+	cout << "Please verify that all the boundary zones in the map are presented in the binary" << endl;
+	cout << "and that the n boundary zones present are the first n zones in the file" << endl;
+      } 
+      }
+    }
+    
+    
     if(ctrl.sw_BC){
       errno = 0; //reset the error
       _BCsurface     = new grid(*_DEM); //incoming surface water
@@ -226,6 +253,9 @@ Basin::Basin(Control &ctrl, Atmosphere &atm)
     // ---------------------------------------------------------------------------------------------------------------    
     _channelwidth = new grid(ctrl.path_BasinFolder + ctrl.fn_chwidth, ctrl.MapType);  //channel width [m]
     _channellength = new grid(ctrl.path_BasinFolder + ctrl.fn_chlength,ctrl.MapType); //channel length [m]
+    if(ctrl.sw_deepGWspatioTemporal){
+      _channeldepth = new grid(ctrl.path_BasinFolder + ctrl.fn_chdepth,ctrl.MapType);//channel depth [m]
+    }
     _chGWparam = new grid(ctrl.path_BasinFolder + ctrl.fn_chgwparam, ctrl.MapType);   //GW to channel parameter
     _Manningn = new grid(ctrl.path_BasinFolder + ctrl.fn_chmanningn, ctrl.MapType);   //Mannings n
     _Temp_w = NULL;                                                                   //Channel water temp [oC]
@@ -593,7 +623,9 @@ Basin::Basin(Control &ctrl, Atmosphere &atm)
       if(_channelwidth)
 	delete _channelwidth;
       if(_channellength)
-	delete _channellength;      
+	delete _channellength;
+      if(_channeldepth)
+	delete _channeldepth;     
       if(_chGWparam)
 	delete _chGWparam;      
       if(_Manningn)

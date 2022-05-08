@@ -44,8 +44,13 @@ int Basin::AdvanceBCMaps(Atmosphere &atm, Control &ctrl) {
   // Update for groundwater
   UpdateBCMap(ifBCgroundwater, *_BCgroundwater, atm);
   //Update for deep groundwater
-  if(ctrl.sw_deepGW)
+  if(ctrl.sw_deepGW){
     UpdateBCMap(ifBCdeepgwtr, *_BCdeepgwtr, atm);
+    if(ctrl.sw_deepGWspatioTemporal){
+    UpdateBCMap(ifdeepGWlvl, *_deepGWlvl, atm);
+  }
+  }
+    
   
 
   return EXIT_SUCCESS;

@@ -28,6 +28,8 @@
 ./asc2c "Height_2.txt" "Height_2.bin"
 ./asc2c "Height_3.txt" "Height_3.bin"
 
+./asc2c "DeepGWlvl.txt" "DeepGWlvl.bin"
+
 
 cp ../Spatial_50m/ClimZones.map "ClimZones.map"
 cp ../Spatial_50m/isohyet.map "isohyet.map"

@@ -71,6 +71,7 @@ struct Control{
   bool sw_intercept; //switch to allow throughfall with filling canopy
   bool sw_LatSoil; //switch to allow for lateral soil flow (upper layers)
   bool sw_deepGW; //switch to turn on and off the additional groundwater storage Deep GW
+  bool sw_deepGWspatioTemporal; // switch to turn on and off the correlation between Deep GW recahrge to channel-groundwater connected area (based on gw level and channel depth)
 
   /*multiple option switches*/
   int toggle_chan_evap; //switch to turn on and off the channel evaporation processes and select energy v. mass transfer approaches
@@ -81,6 +82,7 @@ struct Control{
   int toggle_ra; //toggle between aerodynamic resistance options
   int toggle_rs; //toggle between different soil resistance option
   int toggle_sm; //toggle switch for different stomatal models
+  float deepGWrechargeWeight; // The correction weight for GW recharge, only activate when 'SpatioTemporal_DeepGWRecharge = 1')
 
   string fn_BCsurface;
   string fn_BCgroundwater;
@@ -98,6 +100,7 @@ struct Control{
   string fn_ldd; //local drain direction map filename
   string fn_chwidth; //channel width (m)
   string fn_chlength; // channel length (m)
+  string fn_chdepth; // channel depth (m)
   string fn_deepGW; //Deep GW 
   string fn_hydro_deepGW;
   string fn_chgwparam; //channel water transfer parameter
@@ -163,6 +166,7 @@ struct Control{
   string fn_wind_speed; //wind speed ms-1
   string fn_pressure; //atmos pressure Pa
   string fn_anthrop_heat; //anthropogenic heat Wm-2
+  string fn_deepGWlvl; // Deep groundwater level relative to the surface (m) 
   
   /*Forest patches and forest input files*/
   int NumSpecs; //number of tree species in the simulation

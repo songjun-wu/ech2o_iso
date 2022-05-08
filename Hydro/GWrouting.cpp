@@ -68,6 +68,7 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
   
   REAL8 leak = 0;
   REAL8 BC_deepGW;              //deep groundwater boundary condition
+  REAL8 weight;
 
   dtdx = dt / _dx;
 
@@ -219,13 +220,25 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
     // ****************************************************************************
     Deep_hj1i1 = 0;
     if (ctrl.sw_deepGW){
-      DeepGW_all = _DeepGW->matrix[r][c];
+      DeepGW_all = 3;  // constant Deep GW storage!
       Fhydro = _Hydrofrac_DeepGW->matrix[r][c];
       leak = _BedrockLeakageFlux->matrix[r][c] * dt;            				//[m]
       DeepGW = DeepGW_all * Fhydro + leak;							//[m]
-      if (ctrl.sw_channel && _channelwidth->matrix[r][c] > 0) { 
+      if (ctrl.sw_channel && _channelwidth->matrix[r][c] > 0) {
+        if(ctrl.sw_deepGWspatioTemporal){
+        weight = (_channeldepth->matrix[r][c]+_deepGWlvl->matrix[r][c]>0 ? 
+        (_channelwidth->matrix[r][c]+(sqrt(5)-1)*_channeldepth->matrix[r][c]+sqrt(5)*_deepGWlvl->matrix[r][c])*_channellength->matrix[r][c]*ctrl.deepGWrechargeWeight
+        : 0);
+        } else{
+        weight = 1;
+        }
         Deep_qc = _KsatL3->matrix[r][c] * DeepGW * 
-			(1 - expl(-_chDeepGWparam->matrix[r][c] * DeepGW));			//[m2/s]
+			(1 - expl(-_chDeepGWparam->matrix[r][c] * DeepGW)) * weight;			//[m2/s]
+
+      if(r==3&c==9){
+        cout<<DeepGW<<" "<<DeepGW_all<<" "<<" "<<weight<<" "<<Deep_qc<<endl;
+      }
+      
         DeepGW -= Deep_qc * dtdx * dcdx; 				                        //[m]
       }
       Deep_qj1i = _DeepGWupstreamBC->matrix[r][c]; 						//[m2/s]

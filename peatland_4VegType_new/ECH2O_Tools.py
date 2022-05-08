@@ -18,7 +18,7 @@ from time import localtime, strftime
 from calendar import monthrange as lmon
 import random
 import numpy as np
-from datetime import datetime, timedelta
+import datetime
 import pandas as pd
 from pyDOE import *
 from pcraster import *
@@ -426,229 +426,37 @@ def manage_outputs(Data, Opti, Config, it):
             with open(Data.obs[oname]['sim_hist'],'a') as f_out:
                 tmp.tofile(f_out)
           
-
-        # Fixed-value (initial-value) maps ---------------------------------------------------------
-        if Data.obs[oname]['type']=='map':
-
-            # Missing vaue for PCraster to numpy conversion
-            MV = -9999.
-
-            f_m = Config.PATH_EXEC+'/'+Data.obs[oname]['sim_file']+'.map'
-            if(len(f_m)==0):
-                print("Warning: the variable "+oname+" seems to be missing from the EcH2O outputs...")
-                continue
+        if Data.obs[oname]['type']=='map':   # renewed by Songjun, lets not use netCDF but PCraster
+            print(oname)
+            startDate = datetime.date(2020,1,1)
+            yearList = np.array([2020,2021])
+            monthList = np.arange(1,13,1)
+            startList = []
+            for year in yearList:
+                for month in monthList:
+                    startList.append((datetime.date(int(year), int(month), 1)-startDate).days)
+            startList.append((datetime.date(int(yearList[-1])+1, 1, 1)-startDate).days)
+            if Config.trimB > 1:
+                startList = np.array(startList) + Config.trimB - 1
+            endList = startList[1:]
+            startList = startList[:-1]
+            counter = 0
+            arr_all = np.array([])
+            for year in yearList:
+                for month in monthList:
+                    for it in np.arange(startList[counter], endList[counter], 1):
+                        mapName = Data.obs[oname]['sim_file']+format((it+1)//1000,'03')+'.'+format((it+1)%1000, '03')
+                        if counter==0 and it==startList[counter]:
+                            arr  = pcr2numpy(readmap(mapName), np.nan)
+                        else:
+                            arr += pcr2numpy(readmap(mapName), np.nan)
+                    arr /= (endList[counter] - startList[counter])
+                    arr_all = np.append(arr_all, arr)
+                    counter += 1
+                    
+            with open(Data.obs[oname]['sim_hist'],'a') as f_out:
+                arr_all.tofile(f_out)         # shape(iteration, year, month, row, col)
             
-            # Now that we have what we need, read the PCraster map...
-            var_val = pcr2numpy(readmap(f_m),MV)
-
-            # Write output NCDF file
-            ncFile = Config.PATH_OUT+'/'+oname+'_all.nc'                        
-            # -open nc dataset
-            # If first run, create file
-            if(it==0):
-                ncFile = Config.PATH_OUT+'/'+oname+'_all.nc'                        
-                rootgrp= spio.netcdf_file(ncFile,'w')
-                rootgrp.createDimension('time',0)
-                var_y = pcr2numpy(ycoordinate(Config.cloneMap),MV)[:,1]
-                var_x = pcr2numpy(xcoordinate(Config.cloneMap),MV)[1,:]
-                rootgrp.createDimension('latitude',len(var_y))
-                rootgrp.createDimension('longitude',len(var_x))
-                rootgrp.createDimension('ensemble',Config.nEns)
-                lat= rootgrp.createVariable('latitude','f4',('latitude',))
-                lat.standard_name= 'Latitude'
-                lat.long_name= 'Latitude cell centres'
-                lon= rootgrp.createVariable('longitude','f4',('longitude',))
-                lon.standard_name= 'Longitude'
-                lon.long_name= 'Longitude cell centres'
-                ens= rootgrp.createVariable('ensemble','i',('ensemble',))
-                ens.standard_name= 'Ensemble'
-                ens.long_name= 'Ensembles of runs'
-                # -assign lat and lon to variables
-                lat[:]= var_y
-                lon[:]= var_x
-                ens[:] = np.arange(Config.nEns)+1
-                # -set netCDF attribute
-                rootgrp.title      = 'Maps of '+oname
-                rootgrp.institution= 'NRI, University of Aberdeen'
-                rootgrp.author     = 'A. Smith'
-                rootgrp.history     = 'Created on %s' % (datetime.now()) 
-                varStructure= ('latitude','longitude','ensemble')  
-                ncVariable = rootgrp.createVariable(oname, 'f4', varStructure)
-                ncVariable.standard_name = oname
-                # -write to file
-                rootgrp.sync()
-                rootgrp.close()
-                
-            # Write the actual values for this run
-            rootgrp= spio.netcdf_file(ncFile,'a')   
-            # - write data
-            ncVariable = rootgrp.variables[oname]
-            ncVariable[:,:,it]= var_val
-            # -update file and close 
-            rootgrp.sync()
-            rootgrp.close()
-            
-        # Time-varying maps ------------------------------------------------------------------------
-        if Data.obs[oname]['type']=='mapTs':
-
-            #print oname
-
-            # Missing vaue for PCraster to numpy conversion
-            MV = -9999.
-
-            lensuf = 8-len(Data.obs[oname]['sim_file'])
-            #print lensuf
-
-            MapNames = []
-            itOK = []
-
-            for it2 in range(1,Data.lsim+1):
-                # Only save files beyond the spinup/transient period (if any)
-                if it2 > Config.spinup and it2 >= Config.trimB and it2 < Config.trimB+Config.trimL:
-                    suf = ''.join(list(np.repeat('0',lensuf)))+'.'+format(it2,'03')
-                    suf2 = format(it2,'04')
-                    
-                    # Sometimes, an output has _ as final character, which is replaced with number for sim > 1000
-                    if lensuf == 0 and Data.obs[oname]['sim_file'][-1] == "_":
-                        if it2>=1000 :
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'1.'+format(it2-1000,'03')
-                        if it2>=2000:
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'2.'+format(it2-2000,'03')
-                        if it2>=3000:
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'3.'+format(it2-3000,'03')
-                        if it2>=4000:
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'4.'+format(it2-4000,'03')
-                        if it2>=5000:
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'5.'+format(it2-5000,'03')
-                        if it2>=6000:
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'6.'+format(it2-6000,'03')
-                        if it2>=7000:
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'7.'+format(it2-7000,'03')
-                        if it2>=8000:
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'8.'+format(it2-8000,'03')
-                        if it2>=9000:
-                            suf = ''.join(list(np.repeat('0',lensuf)))+'9.'+format(it2-9000,'03') 
-                        
-                    else:                       
-                        if it2>=1000 :
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'1.'+format(it2-1000,'03')
-                        if it2>=2000:
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'2.'+format(it2-2000,'03')
-                        if it2>=3000:
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'3.'+format(it2-3000,'03')
-                        if it2>=4000:
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'4.'+format(it2-4000,'03')
-                        if it2>=5000:
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'5.'+format(it2-5000,'03')
-                        if it2>=6000:
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'6.'+format(it2-6000,'03')
-                        if it2>=7000:
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'7.'+format(it2-7000,'03')
-                        if it2>=8000:
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'8.'+format(it2-8000,'03')
-                        if it2>=9000:
-                            suf = ''.join(list(np.repeat('0',lensuf-1)))+'9.'+format(it2-9000,'03')
-                    
-
-                    # Store names and it2 index
-                    # If the "_" is replaced when sim > 1000, need to remove and replace with suf
-                    if lensuf == 0 and Data.obs[oname]['sim_file'][-1] == "_" and it2 >= 1000:
-                        file2Read = Data.obs[oname]['sim_file'][:-1]
-                        f_m = Config.PATH_EXEC+'/'+file2Read+suf       
-                    else:
-                        f_m = Config.PATH_EXEC+'/'+Data.obs[oname]['sim_file']+suf                    
-                    
-                    if len(glob.glob(f_m)) == 0:
-                        continue
-                    else:
-                        MapNames += [f_m]
-                        itOK += [it2]
-                        print(f_m)
-            # Time values for netCDF output
-            var_t = np.array([(Config.treal[x-Config.trimB]-datetime(1901,1,1,0,0)).days for x in itOK])
-            if(len(var_t)==0):
-                print("Warning: the variable "+oname+" seems to be missing from the EcH2O outputs...")
-                continue
-
-            # Second now that we have what we need...
-            for it2 in range(len(itOK)):
-                # Read map at first time step of interest, convert to array using a missing value,
-                # and add an extra 3rd dimension (empty) for later appending
-                if(it2==0):
-                    var_val = pcr2numpy(readmap(MapNames[it2]),MV)[None,...]
-                # Read subsequent map, same procedure and then append
-                else:
-                    var_val = np.append(var_val, pcr2numpy(readmap(MapNames[it2]),MV)[None,...], axis=0)
-
-            # Write output NCDF file
-            ncFile = Config.PATH_OUT+'/'+oname+'_all.nc'                        
-            # -open nc dataset
-            # If first run, create file
-            if(it==0):
-                ncFile = Config.PATH_OUT+'/'+oname+'_all.nc'                        
-                rootgrp= spio.netcdf_file(ncFile,'w')
-                rootgrp.createDimension('time',0)
-                var_y = pcr2numpy(ycoordinate(Config.cloneMap),MV)[:,1]
-                var_x = pcr2numpy(xcoordinate(Config.cloneMap),MV)[1,:]
-                rootgrp.createDimension('latitude',len(var_y))
-                rootgrp.createDimension('longitude',len(var_x))
-                if Config.mode == 'forward_runs':
-                    rootgrp.createDimension('ensemble',Config.nEns)
-                elif Config.mode == 'calib_runs':
-                    rootgrp.createDimension('ensemble',Opti.nit)
-                date_time= rootgrp.createVariable('time','f8',('time',))
-                date_time.standard_name= 'time'
-                date_time.long_name= 'Days since 1901-01-01 00:00:00.0'
-                date_time.units= 'Days since 1901-01-01 00:00:00.0'
-                date_time.calendar= 'gregorian'
-                lat= rootgrp.createVariable('latitude','f4',('latitude',))
-                lat.standard_name= 'Latitude'
-                lat.long_name= 'Latitude cell centres'
-                lon= rootgrp.createVariable('longitude','f4',('longitude',))
-                lon.standard_name= 'Longitude'
-                lon.long_name= 'Longitude cell centres'
-                ens= rootgrp.createVariable('ensemble','i',('ensemble',))
-                ens.standard_name= 'Ensemble'
-                ens.long_name= 'Ensembles of runs'
-                # -assign lat, lon and t to variables
-                lat[:]= var_y
-                lon[:]= var_x
-                date_time[:] = var_t
-                
-                if Config.mode == 'forward_runs':                
-                    ens[:] = np.arange(Config.nEns)+1
-                elif Config.mode == 'calib_runs':
-                    ens[:] = np.arange(Opti.nit)+1                    
-                    
-                #print 'var_x'
-                #print var_x
-                #print 'var_y'
-                #print var_y
-                #print 'var_t'
-                #print var_t
-
-                # -set netCDF attribute
-                rootgrp.title      = 'Maps of '+oname
-                rootgrp.institution= 'NRI, University of Aberdeen'
-                rootgrp.author     = 'A. Smith'
-                rootgrp.history     = 'Created on %s' % (datetime.now()) 
-                varStructure= ('time','latitude','longitude','ensemble')  
-                ncVariable = rootgrp.createVariable(oname, 'f4', varStructure)
-                ncVariable.standard_name = oname
-                # -write to file
-                rootgrp.sync()
-                rootgrp.close()
-                
-            # Write the actual values for this run
-            rootgrp= spio.netcdf_file(ncFile,'a')   
-            # - write data
-            ncVariable = rootgrp.variables[oname]
-            ncVariable[:,:,:,it]= var_val
-            # -update file and close 
-            rootgrp.sync()
-            rootgrp.close()
-
-            #print
 
 # ----------------------------------------------------------------------------
 # -- Restart: trim outputs files to match the specified restart iteration 

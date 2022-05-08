@@ -163,6 +163,8 @@ Basin::~Basin(){
   /* Channels */
   if(_channelwidth)
     delete _channelwidth;
+  if(_channeldepth)
+    delete _channeldepth;
   if(_channellength)
     delete _channellength;      
   if(_chGWparam)
