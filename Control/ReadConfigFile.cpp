@@ -228,10 +228,8 @@ int Control::ReadConfigFile(string confilename /*= "config.ini"*/)
       Config.readInto(fn_chdeepgwparam, "channel_deepgw_transfer_param");
       Config.readInto(fn_deepGW, "Groundwater_DeepStorage");
       Config.readInto(fn_hydro_deepGW, "Fraction_Hydroactive_DeepGW");
-      if(sw_deepGWspatioTemporal){
-        Config.readInto(fn_chdepth, "channel_depth");
-    }
-    }
+      }
+    Config.readInto(fn_chdepth, "channel_depth");
     
     Config.readInto(fn_paramtable, "Species_Parameters");
 
