@@ -757,6 +757,7 @@ if Config.mode == 'calib_runs':
             os.system('rm -f '+Config.PATH_EXEC+'/*')
             print('--> running ECH2O')
             start = time.time()
+            time.sleep(300)
             os.system(Config.cmde_ech2o+' > '+Config.PATH_EXEC+'/ech2o.log')
             print('    run time:',time.time() - start,'seconds (limit at '+Config.tlimit+')')
             os.chdir(Config.PATH_EXEC)

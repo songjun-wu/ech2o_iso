@@ -17,7 +17,7 @@ class Opti:
     PATH_EXEC = 'setup_all'   
 
     # Number of iterations
-    nit = 300
+    nit = 200
 
     # Take into account bare rock? (limiting soil evap)
     simRock = 0
@@ -150,10 +150,10 @@ class Paras:
     
     # - uniform channel parameters
     ref['ChanGWSeep']= {'soil':0, 'veg':0, 'log':0, 'file':'chanparam',    'min':[0.001],  'max':[10]}
-    ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.1],  'max':[150]}
+    ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.001],  'max':[10]}
 
     ref['channel_deepgw_transfer_param']= {'soil':0, 'veg':0, 'log':0, 'file':'chanDeepparam',    'min':[0.001],  'max':[10]}
-    ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.001],  'max':[1]}
+    ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.0001],  'max':[0.15]}
     ref['d2H_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'d2H_DeepGW',    'min':[-65],  'max':[-59]}
  
     # - vegetation-dependent

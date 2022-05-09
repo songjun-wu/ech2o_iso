@@ -234,11 +234,6 @@ int Basin::DailyGWRouting(Atmosphere &atm, Control &ctrl, Tracking &trck) {
         }
         Deep_qc = _KsatL3->matrix[r][c] * DeepGW * 
 			(1 - expl(-_chDeepGWparam->matrix[r][c] * DeepGW)) * weight;			//[m2/s]
-
-      if(r==3&c==9){
-        cout<<DeepGW<<" "<<DeepGW_all<<" "<<" "<<weight<<" "<<Deep_qc<<endl;
-      }
-      
         DeepGW -= Deep_qc * dtdx * dcdx; 				                        //[m]
       }
       Deep_qj1i = _DeepGWupstreamBC->matrix[r][c]; 						//[m2/s]

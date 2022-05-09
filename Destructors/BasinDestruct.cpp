@@ -31,7 +31,8 @@
 #include "Basin.h"
 
 Basin::~Basin(){
-
+  if(_deepGWlvl)
+    delete _deepGWlvl;
   /* Boundary conditions */
   if(_BCsurface)
     delete _BCsurface;
