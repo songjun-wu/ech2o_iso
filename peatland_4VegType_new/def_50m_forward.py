@@ -73,6 +73,11 @@ class Data:
     obs['EvapI']           = {'sim_file':'EvapI.tab'          ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
     obs['EvapC']           = {'sim_file':'EvapC.tab'          ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
 
+    obs['Transp_map']       = {'sim_file':'EvapT','conv':1,'type':'map'}
+    obs['EvapS_map']        = {'sim_file':'EvapS','conv':1,'type':'map'}
+    obs['EvapI_map']        = {'sim_file':'EvapI','conv':1,'type':'map'}
+    obs['EvapC_map']        = {'sim_file':'EvapC','conv':1,'type':'map'}
+
     # Temperature and energy balance components
     # obs['Soil-T1']       = {'sim_file':'SoilTemp_d1.tab'   ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
     # obs['Soil-T2']       = {'sim_file':'SoilTemp_d2.tab'   ,'sim_pts':1,'conv':1,'type':'Ts'}

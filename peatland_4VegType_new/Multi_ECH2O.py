@@ -833,6 +833,33 @@ if Config.mode == 'forward_runs':
         print('    run time:',time.time() - start,'seconds (limit at '+Config.tlimit+')')
         # Check if it ran properly
         os.chdir(Config.PATH_EXEC)
+
+        if ECH2O_Tools.runOK(Data, Opti, Config) == 0:
+            # If the run fails, let's give it one more chance!
+            os.chdir(Config.PATH_OUT)
+            os.system('rm -f '+Config.PATH_EXEC+'/*')
+            print('--> running ECH2O')
+            start = time.time()
+            time.sleep(300)
+            os.system(Config.cmde_ech2o+' > '+Config.PATH_EXEC+'/ech2o.log')
+            print('    run time:',time.time() - start,'seconds (limit at '+Config.tlimit+')')
+            os.chdir(Config.PATH_EXEC)
+            if ECH2O_Tools.runOK(Data, Opti, Config) == 0:
+                f_failpar = Config.PATH_OUT+'/Parameters_fail.txt'
+                if len(glob.glob(f_failpar))==0:
+                    with open(f_failpar,'w') as f_in:
+                        f_in.write('Sample,'+','.join(Opti.names)+'\n')
+                        f_in.write(str(it+1)+','+','.join([str(x) for x in Opti.x])+'\n')
+                else:
+                    with open(f_failpar,'a') as f_in:
+                        f_in.write(str(it+1)+','+','.join([str(x) for x in Opti.x])+'\n')
+                    os.system('rm ' +Config.PATH_OUT+'/core*')
+                os.system('mv '+Config.PATH_EXEC+'/ech2o.log '+Config.PATH_OUT+'/ech2o_'+Opti.itout+'.log')
+                # If it is the very first iteration, record it for mana_outputs later
+                if it==0:
+                    Opti.begfail = 1
+
+
         if ECH2O_Tools.runOK(Data, Opti, Config) == 1:
             # Group outputs
             ECH2O_Tools.manage_outputs(Data, Opti, Config, it)
