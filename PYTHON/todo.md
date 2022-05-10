@@ -33,3 +33,6 @@
 
 *********************************
 :20220507 To incorperation the spatial and temporal dynamics of deepGW recharge: add ifFinerDeepGW, add chanDepth.map, add groundwater level Time series
+
+*********************************
+:20220510 Add channel Evaporation correction factor for mass transfer method!

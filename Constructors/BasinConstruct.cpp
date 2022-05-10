@@ -253,8 +253,9 @@ Basin::Basin(Control &ctrl, Atmosphere &atm)
     // ---------------------------------------------------------------------------------------------------------------    
     _channelwidth = new grid(ctrl.path_BasinFolder + ctrl.fn_chwidth, ctrl.MapType);  //channel width [m]
     _channellength = new grid(ctrl.path_BasinFolder + ctrl.fn_chlength,ctrl.MapType); //channel length [m]
- 
     _channeldepth = new grid(ctrl.path_BasinFolder + ctrl.fn_chdepth,ctrl.MapType);//channel depth [m]
+
+    _channelEWeight = new grid(ctrl.path_BasinFolder + ctrl.fn_channelEWeight,ctrl.MapType); // correction factor for channel E [-]
 
     _chGWparam = new grid(ctrl.path_BasinFolder + ctrl.fn_chgwparam, ctrl.MapType);   //GW to channel parameter
     _Manningn = new grid(ctrl.path_BasinFolder + ctrl.fn_chmanningn, ctrl.MapType);   //Mannings n

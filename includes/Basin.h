@@ -121,6 +121,8 @@ class Basin {
 
   grid *_channeldepth; // channel depth in m
 
+  grid *_channelEWeight; // correction factor for channel E [-]
+
   grid *_dampdepth; // soil depth at which there is no diurnal temperature variation
   grid *_Temp_d; //temperature at damping depth
   grid *_Temp_L1, *_Temp_L2, *_Temp_L3; //Temperature at bottom of each soil layer

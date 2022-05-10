@@ -206,6 +206,8 @@ int Control::ReadConfigFile(string confilename /*= "config.ini"*/)
     Config.readInto(fn_chgwparam, "channel_gw_transfer_param");
     Config.readInto(fn_chmanningn, "mannings_n");
 
+    Config.readInto(fn_channelEWeight, "channelE_weight");
+
     if(toggle_chan_evap==1){
       Config.readInto(fn_temp_w,"Water_temperature");
       Config.readInto(fn_chanrough,"Channel_roughness");

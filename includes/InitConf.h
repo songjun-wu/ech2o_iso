@@ -106,6 +106,8 @@ struct Control{
   string fn_chgwparam; //channel water transfer parameter
   string fn_chdeepgwparam; //channel water transfer parameter
   string fn_chmanningn; //channel roughness parameter
+
+  string  fn_channelEWeight; // correction factor for channel E [-]
   
   /*Soil properties and parameters*/
   string fn_ksat_skin; //soil hydraulic capcity of soil skin
