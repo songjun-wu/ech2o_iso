@@ -17,7 +17,7 @@ class Opti:
     PATH_EXEC = 'setup_all'   
 
     # Number of iterations
-    nit = 200
+    nit = 300
 
     # Take into account bare rock? (limiting soil evap)
     simRock = 0
@@ -152,7 +152,7 @@ class Paras:
     ref['ChanGWSeep']= {'soil':0, 'veg':0, 'log':0, 'file':'chanparam',    'min':[0.001],  'max':[10]}
     ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.001],  'max':[10]}
     
-    ref['channelE_weight']= {'soil':0, 'veg':0, 'log':0, 'file':'channelE_weight',    'min':[0.1],  'max':[2]}
+    ref['channelE_weight']= {'soil':0, 'veg':0, 'log':0, 'file':'channelE_weight',    'min':[0.01/200.75],  'max':[2/200.75]}
 
     ref['channel_deepgw_transfer_param']= {'soil':0, 'veg':0, 'log':0, 'file':'chanDeepparam',    'min':[0.001],  'max':[10]}
     ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.0001],  'max':[0.15]}

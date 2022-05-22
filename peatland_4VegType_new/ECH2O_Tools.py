@@ -445,7 +445,8 @@ def manage_outputs(Data, Opti, Config, it):
             for year in yearList:
                 for month in monthList:
                     for it in np.arange(startList[counter], endList[counter], 1):
-                        mapName = Data.obs[oname]['sim_file']+format((it+1)//1000,'03')+'.'+format((it+1)%1000, '03')
+                        #mapName = Data.obs[oname]['sim_file']+format((it+1)//1000,'03')+'.'+format((it+1)%1000, '03')
+                        mapName = Data.obs[oname]['sim_file']+str(it+1)
                         if counter==0 and it==startList[counter]:
                             arr  = pcr2numpy(readmap(mapName), np.nan)
                         else:

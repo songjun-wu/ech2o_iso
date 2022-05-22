@@ -162,7 +162,7 @@ os.system('pcrcalc "chanrough.map = chanmask.map * 10"')
 os.system('pcrcalc "chanparam.map=chanmask.map*5"')
 os.system('pcrcalc "KeffTopSoil.map = Keff.map"')
 
-os.system('pcrcalc "channelE_weight.map = unit.map * 1"')
+os.system('pcrcalc "channelE_weight.map = unit.map * 1/200"')
 
 
 print('******** Test maps! ********')

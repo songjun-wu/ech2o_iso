@@ -53,17 +53,42 @@ class Data:
     obs['OutletDischarge']       = {'sim_file':'Streamflow.tab' ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
     # obs['SubsurfaceR']  = {'sim_file':'GWLatO.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
     # obs['OverlandR']    = {'sim_file':'SrfLatO.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
+
     obs['SMC-L1']          = {'sim_file':'SoilMoistureL1.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
     obs['SMC-L2']          = {'sim_file':'SoilMoistureL2.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
     obs['SMC-L3']          = {'sim_file':'SoilMoistureL3.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    #obs['DeepGroundWater'] = {'sim_file':'DeepGroundWater.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    # obs['Infilt']       = {'sim_file':'Infilt.tab'         ,'sim_pts':1,'conv':1,'type':'Ts'}
-    # obs['Rechar']       = {'sim_file':'Recharge.tab'       ,'sim_pts':1,'conv':1,'type':'Ts'}
-    # obs['Leak']         = {'sim_file':'Leakance.tab'       ,'sim_pts':1,'conv':1,'type':'Ts'}
+
+    obs['Infiltration']                = {'sim_file':'Infilt.tab'    ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['Percolation_to_Layer2']       = {'sim_file':'PercolL2.tab'  ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['Percolation_to_Layer3']       = {'sim_file':'PercolL3.tab'  ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['Groundwater_Recharge']        = {'sim_file':'Recharge.tab'  ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['Bedrock_Leakance']            = {'sim_file':'Leak.tab'      ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+
+    obs['Return_Flow_Surface']         = {'sim_file':'ReturnSrf.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['Return_Flow_to_Layer1']       = {'sim_file':'ReturnL1.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['Return_Flow_to_Layer2']       = {'sim_file':'ReturnL2.tab'       ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+
+
+    obs['Surface_to_Channel']       = {'sim_file':'SrftoChn.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['GW_to_Channel']       = {'sim_file':'GWtoChn.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['DeepGW_to_Channel']       = {'sim_file':'DeepGWtoChn.tab'       ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+
+
     
     obs['SMC-L1_map']       = {'sim_file':'SWC1_','conv':1,'type':'map'}
     obs['SMC-L2_map']       = {'sim_file':'SWC2_','conv':1,'type':'map'}
     obs['SMC-L3_map']       = {'sim_file':'SWC3_','conv':1,'type':'map'}
+
+    obs['Infiltration_map']                = {'sim_file':'Inf'       ,'conv':1,'type':'map'}
+    obs['Percolation_to_Layer2_map']       = {'sim_file':'PrcL2'     ,'conv':1,'type':'map'}
+    obs['Percolation_to_Layer3_map']       = {'sim_file':'PrcL3'     ,'conv':1,'type':'map'}
+    obs['Groundwater_Recharge_map']        = {'sim_file':'Rchg'      ,'conv':1,'type':'map'}
+    obs['Bedrock_Leakance_map']            = {'sim_file':'Leak'      ,'conv':1,'type':'map'}
+
+    obs['Overland_Inflow_map']             = {'sim_file':'LSrfi'     ,'conv':1,'type':'map'}
+    obs['Groundwater_Inflow_map']          = {'sim_file':'LGWi'      ,'conv':1,'type':'map'}
+    obs['DeepGW_Inflow_map']               = {'sim_file':'LDeepGWi'  ,'conv':1,'type':'map'}
+    obs['Stream_Inflow_map']               = {'sim_file':'LChni'     ,'conv':1,'type':'map'}
 
 
     # # Green water fluxes
@@ -169,12 +194,12 @@ class Paras:
     
     # - uniform channel parameters
     ref['ChanGWSeep']= {'soil':0, 'veg':0, 'log':0, 'file':'chanparam',    'min':[0.001],  'max':[10]}
-    ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.1],  'max':[150]}
+    ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.001],  'max':[10]}
     
-    ref['channelE_weight']= {'soil':0, 'veg':0, 'log':0, 'file':'channelE_weight',    'min':[0.1],  'max':[2]}
+    ref['channelE_weight']= {'soil':0, 'veg':0, 'log':0, 'file':'channelE_weight',    'min':[0.01/200.75],  'max':[2/200.75]}
 
     ref['channel_deepgw_transfer_param']= {'soil':0, 'veg':0, 'log':0, 'file':'chanDeepparam',    'min':[0.001],  'max':[10]}
-    ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.001],  'max':[1]}
+    ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.0001],  'max':[0.15]}
     ref['d2H_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'d2H_DeepGW',    'min':[-65],  'max':[-59]}
  
     # - vegetation-dependent

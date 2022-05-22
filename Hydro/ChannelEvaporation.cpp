@@ -186,7 +186,7 @@ int Basin::ChannelEvaporation(Atmosphere &atm,
   // ****************************************************************************
   if( (-LE)>0 ) { //only evaporation if LE is negative
     evap = std::min<REAL8>(1/ra_LE , -LE/(rho_w*lambda));
-    evap = evap * _channelEWeight->matrix[r][c];
+    evap = evap * _channelwidth->matrix[r][c] * _channellength->matrix[r][c] * _channelEWeight->matrix[r][c];
     evap = (chan_store < evap * dt) ? chan_store/dt : evap;    
   } else {
     evap = 0;
