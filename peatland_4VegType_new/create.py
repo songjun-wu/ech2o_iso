@@ -67,8 +67,8 @@ os.system('pcrcalc "KvKh.map = unit.map * 4 * 1e-1"')
 os.system('pcrcalc "theta_r.map = unit.map * 5 * 1e-2"')
 os.system('pcrcalc "Wc.map = unit.map * 7 * 1e-1"')
 os.system('pcrcalc "Wp.map = unit.map * 9"')
-os.system('pcrcalc "soildepth.L1.map = unit.map * 1 * 1e-1"')
-os.system('pcrcalc "soildepth.L2.map = unit.map * 4 * 1e-1"')
+os.system('pcrcalc "soildepth.L1.map = unit.map * 15 * 1e-2"')
+os.system('pcrcalc "soildepth.L2.map = unit.map * 30 * 1e-2"')
 os.system('pcrcalc "soildepth.L3.map = unit.map * 20 * 1e-1"') # or 2?
 os.system('pcrcalc "Keff.map = unit.map * 1 * 1e-4"')
 

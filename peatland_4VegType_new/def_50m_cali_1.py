@@ -17,7 +17,7 @@ class Opti:
     PATH_EXEC = 'setup_all'   
 
     # Number of iterations
-    nit = 5
+    nit = 300
 
     # Take into account bare rock? (limiting soil evap)
     simRock = 0
@@ -45,7 +45,6 @@ class Data:
     obsdir = './Outputs/Data/'
     sim_chan = [1,2,4,6,8,10,11,12,13]
     sim_gw = [3,5,7,9,15,14]
-    sim_all = [1,2,4,6,8,10,11,12,13,3,5,7,9,15,14]
     
     # -- Observations used
     obs = {}
@@ -53,58 +52,21 @@ class Data:
     obs['OutletDischarge']       = {'sim_file':'Streamflow.tab' ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
     # obs['SubsurfaceR']  = {'sim_file':'GWLatO.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
     # obs['OverlandR']    = {'sim_file':'SrfLatO.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
-
-    obs['SMC-L1']          = {'sim_file':'SoilMoistureL1.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['SMC-L2']          = {'sim_file':'SoilMoistureL2.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['SMC-L3']          = {'sim_file':'SoilMoistureL3.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-
-    obs['Infiltration']                = {'sim_file':'Infilt.tab'    ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['Percolation_to_Layer2']       = {'sim_file':'PercolL2.tab'  ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['Percolation_to_Layer3']       = {'sim_file':'PercolL3.tab'  ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['Groundwater_Recharge']        = {'sim_file':'Recharge.tab'  ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['Bedrock_Leakance']            = {'sim_file':'Leak.tab'      ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-
-    obs['Return_Flow_Surface']         = {'sim_file':'ReturnSrf.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['Return_Flow_to_Layer1']       = {'sim_file':'ReturnL1.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['Return_Flow_to_Layer2']       = {'sim_file':'ReturnL2.tab'       ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-
-
-    obs['Surface_to_Channel']       = {'sim_file':'SrftoChn.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['GW_to_Channel']       = {'sim_file':'GWtoChn.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['DeepGW_to_Channel']       = {'sim_file':'DeepGWtoChn.tab'       ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-
-
-    
-    obs['SMC-L1_map']       = {'sim_file':'SWC1_','conv':1,'type':'map'}
-    obs['SMC-L2_map']       = {'sim_file':'SWC2_','conv':1,'type':'map'}
-    obs['SMC-L3_map']       = {'sim_file':'SWC3_','conv':1,'type':'map'}
-
-    obs['Infiltration_map']                = {'sim_file':'Inf'       ,'conv':1,'type':'map'}
-    obs['Percolation_to_Layer2_map']       = {'sim_file':'PrcL2'     ,'conv':1,'type':'map'}
-    obs['Percolation_to_Layer3_map']       = {'sim_file':'PrcL3'     ,'conv':1,'type':'map'}
-    obs['Groundwater_Recharge_map']        = {'sim_file':'Rchg'      ,'conv':1,'type':'map'}
-    obs['Bedrock_Leakance_map']            = {'sim_file':'Leak'      ,'conv':1,'type':'map'}
-
-    obs['Overland_Inflow_map']             = {'sim_file':'LSrfi'     ,'conv':1,'type':'map'}
-    obs['Groundwater_Inflow_map']          = {'sim_file':'LGWi'      ,'conv':1,'type':'map'}
-    obs['DeepGW_Inflow_map']               = {'sim_file':'LDeepGWi'  ,'conv':1,'type':'map'}
-    obs['Stream_Inflow_map']               = {'sim_file':'LChni'     ,'conv':1,'type':'map'}
-
+    #obs['SMC-L1']       = {'sim_file':'SoilMoistureL1.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
+    #obs['SMC-L2']       = {'sim_file':'SoilMoistureL2.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
+    #obs['SMC-L3']       = {'sim_file':'SoilMoistureL3.tab' ,'sim_pts':2,'conv':1,'type':'Ts'}
+    # obs['Infilt']       = {'sim_file':'Infilt.tab'         ,'sim_pts':1,'conv':1,'type':'Ts'}
+    # obs['Rechar']       = {'sim_file':'Recharge.tab'       ,'sim_pts':1,'conv':1,'type':'Ts'}
+    # obs['Leak']         = {'sim_file':'Leakance.tab'       ,'sim_pts':1,'conv':1,'type':'Ts'}
 
     # # Green water fluxes
-    # obs['ET']           = {'sim_file':'Evap.tab'           ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['Transp']       = {'sim_file':'EvapT.tab'          ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['EvapS']           = {'sim_file':'EvapS.tab'          ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['EvapI']           = {'sim_file':'EvapI.tab'          ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['EvapC']           = {'sim_file':'EvapC.tab'          ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-
-    obs['Transp_map']       = {'sim_file':'EvapT','conv':1,'type':'map'}
-    obs['EvapS_map']        = {'sim_file':'EvapS','conv':1,'type':'map'}
-    obs['EvapI_map']        = {'sim_file':'EvapI','conv':1,'type':'map'}
-    obs['EvapC_map']        = {'sim_file':'EvapC','conv':1,'type':'map'}
+    # obs['ET']           = {'sim_file':'Evap.tab'           ,'sim_pts':1,'conv':1,'type':'Ts'}
+    # obs['Transp']       = {'sim_file':'EvapT.tab'          ,'sim_pts':1,'conv':1,'type':'Ts'}
+    # obs['Es']           = {'sim_file':'EvapS.tab'          ,'sim_pts':1,'conv':1,'type':'Ts'}
+    # obs['Ei']           = {'sim_file':'EvapI.tab'          ,'sim_pts':1,'conv':1,'type':'Ts'}
 
     # Temperature and energy balance components
-    # obs['Soil-T1']       = {'sim_file':'SoilTemp_d1.tab'   ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    # obs['Soil-T1']       = {'sim_file':'SoilTemp_d1.tab'   ,'sim_pts':1,'conv':1,'type':'Ts'}
     # obs['Soil-T2']       = {'sim_file':'SoilTemp_d2.tab'   ,'sim_pts':1,'conv':1,'type':'Ts'}
     # obs['Soil-T3']       = {'sim_file':'SoilTemp_d3.tab'   ,'sim_pts':1,'conv':1,'type':'Ts'}
     # obs['Surf-T']        = {'sim_file':'SkinTemp.tab'      ,'sim_pts':2,'conv':1,'type':'Ts'}
@@ -122,23 +84,17 @@ class Data:
 
     obs['d2H-chan']   = {'sim_file':'d2H_chan.tab'     ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
     # obs['d2H-Outletsurface']   = {'sim_file':'d2H_surface.tab'     ,'sim_pts':1,'conv':1,'type':'Ts'}
-    obs['d2H-surface']   = {'sim_file':'d2H_surface.tab'     ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['d2H-Soil-L1']   = {'sim_file':'d2H_soilL1.tab'     ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['d2H-Soil-L2']   = {'sim_file':'d2H_soilL2.tab'     ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['d2H-Soil-L3']   = {'sim_file':'d2H_soilL3.tab'     ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    # obs['d2H-GW']   = {'sim_file':'d2H_groundwater.tab'     ,'sim_pts':sim_gw,'conv':1,'type':'Ts'}
+    # obs['d2H-surface']   = {'sim_file':'d2H_surface.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
+    # obs['d2H-Soil-L1']   = {'sim_file':'d2H_soilL1.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
+    # obs['d2H-Soil-L2']   = {'sim_file':'d2H_soilL2.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
+    obs['d2H-Soil-L3']   = {'sim_file':'d2H_soilL3.tab'     ,'sim_pts':sim_gw,'conv':1,'type':'Ts'}
+    #  obs['d2H-GW']   = {'sim_file':'d2H_groundwater.tab'     ,'sim_pts':sim_gw,'conv':1,'type':'Ts'}
     # obs['d2H-ExtraGW']   = {'sim_file':'d2H_ExtraGWOut.tab'     ,'sim_pts':3,'conv':1,'type':'Ts'}
     # obs['Age-Outletsurface']   = {'sim_file':'Age_surface.tab'     ,'sim_pts':1,'conv':1,'type':'Ts'}
     # obs['Age-surface']   = {'sim_file':'Age_surface.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
     # obs['Age-Soil-L1']   = {'sim_file':'Age_soilL1.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
     # obs['Age-Soil-L2']   = {'sim_file':'Age_soilL2.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
     # obs['Age-GW']   = {'sim_file':'Age_groundwater.tab'     ,'sim_pts':2,'conv':1,'type':'Ts'}
-
-    obs['d2H-chan_map'   ]   = {'sim_file':'dHchn','conv':1,'type':'map'}
-    obs['d2H-surface_map']   = {'sim_file':'dHsrf','conv':1,'type':'map'}
-    obs['d2H-Soil-L1_map']   = {'sim_file':'dHsL1','conv':1,'type':'map'}
-    obs['d2H-Soil-L2_map']   = {'sim_file':'dHsL2','conv':1,'type':'map'}
-    obs['d2H-Soil-L3_map']   = {'sim_file':'dHsL3','conv':1,'type':'map'}
 
     nobs = len(obs)
     # -- Simulations outputs

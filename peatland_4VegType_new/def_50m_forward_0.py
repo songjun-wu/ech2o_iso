@@ -165,10 +165,10 @@ class Paras:
 
     # - soil-dependent
 
-    #ref['Depth_1']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L1','min':[0.05],'max':[0.3]}
-    #ref['Depth_2']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L2','min':[0.3],'max':[0.5]}
+    ref['Depth_1']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L1','min':[0.05],'max':[0.3]}
+    ref['Depth_2']   = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L2','min':[0.3],'max':[0.5]}
     ref['Depth_3']     = {'soil':0, 'veg':0, 'log':0, 'file':'soildepth.L3',    'min':[1.3], 'max':[5]}
-    ref['Porosity']  = {'soil':1, 'veg':0, 'log':0, 'file':'poros',        'min':[0.4,0.5],'max':[0.5,0.7]}
+    ref['Porosity']  = {'soil':1, 'veg':0, 'log':0, 'file':'poros',        'min':[0.4,0.4],'max':[0.7,0.7]}
     ref['Ktop']    = {'soil':1, 'veg':0, 'log':1, 'file':'Keff',         'min':[1e-6,1e-6],'max':[1e-3,1e-3]}
     ref['Anisotropy']= {'soil':1, 'veg':0, 'log':1, 'file':'KvKh',         'min':[1e-2,1e-2],'max':[0.5,0.5]}
     ref['BClambda']  = {'soil':1, 'veg':0, 'log':0, 'file':'BClambda',     'min':[2,2], 'max':[12,12]}
@@ -189,14 +189,14 @@ class Paras:
 
 
     # - channel evaporation
-    #ref['Channel_roughness']= {'soil':0, 'veg':0, 'log':0, 'file':'chanrough',    'min':[0.001],  'max':[30]}    
+    ref['Channel_roughness']= {'soil':0, 'veg':0, 'log':0, 'file':'chanrough',    'min':[0.001],  'max':[30]}    
     #ref['Water_temperature']= {'soil':0, 'veg':0, 'log':0, 'file':'water_temp',    'min':[0.0001],  'max':[1]}  
     
     # - uniform channel parameters
     ref['ChanGWSeep']= {'soil':0, 'veg':0, 'log':0, 'file':'chanparam',    'min':[0.001],  'max':[10]}
-    ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.001],  'max':[0.8]}
+    ref['manningRiv']= {'soil':0, 'veg':0, 'log':0, 'file':'chanmanningn', 'min':[0.001],  'max':[10]}
     
-    ref['channelE_weight']= {'soil':0, 'veg':0, 'log':0, 'file':'channelE_weight',    'min':[0.01/200.75],  'max':[1/200.75]}
+    ref['channelE_weight']= {'soil':0, 'veg':0, 'log':0, 'file':'channelE_weight',    'min':[0.01/200.75],  'max':[2/200.75]}
 
     ref['channel_deepgw_transfer_param']= {'soil':0, 'veg':0, 'log':0, 'file':'chanDeepparam',    'min':[0.001],  'max':[10]}
     ref['Fraction_Hydroactive_DeepGW']= {'soil':0, 'veg':0, 'log':0, 'file':'fActive_DeepGW',    'min':[0.0001],  'max':[0.15]}
