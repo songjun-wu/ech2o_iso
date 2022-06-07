@@ -406,7 +406,6 @@ def manage_outputs(Data, Opti, Config, it):
 
         # Time series
         if Data.obs[oname]['type']=='Ts':
-            print(oname)
             hskip = Data.nts+3
             # export multiple points, modified by Songjun    
             #idx = np.argsort(np.array(Data.sim_order))[Data.obs[oname]['sim_pts']-1]+1
@@ -427,7 +426,6 @@ def manage_outputs(Data, Opti, Config, it):
                 tmp.tofile(f_out)
           
         if Data.obs[oname]['type']=='map':   # renewed by Songjun, lets not use netCDF but PCraster
-            print(oname)
             startDate = datetime.date(2020,1,1)
             yearList = np.array([2020,2021])
             monthList = np.arange(1,13,1)
@@ -457,6 +455,18 @@ def manage_outputs(Data, Opti, Config, it):
                     
             with open(Data.obs[oname]['sim_hist'],'a') as f_out:
                 arr_all.tofile(f_out)         # shape(iteration, year, month, row, col)
+
+
+
+        if Data.obs[oname]['type']=='mapTs':   # renewed by Songjun, lets not use netCDF but PCraster
+            arr = np.array([])
+            for Ts in Data.obs[oname]['Ts']:
+                mapName = Data.obs[oname]['sim_file']+str(Ts)
+                arr = np.append(arr, pcr2numpy(readmap(mapName), np.nan))
+
+            with open(Data.obs[oname]['sim_hist'],'a') as f_out:
+                arr.tofile(f_out)         # shape(iteration, year, month, row, col)
+                
             
 
 # ----------------------------------------------------------------------------

@@ -59,6 +59,8 @@ class Data:
     # obs['Rechar']       = {'sim_file':'Recharge.tab'       ,'sim_pts':1,'conv':1,'type':'Ts'}
     # obs['Leak']         = {'sim_file':'Leakance.tab'       ,'sim_pts':1,'conv':1,'type':'Ts'}
 
+    obs['SMC-L1_mapTs']       = {'sim_file':'SWC1_mapTs_','conv':1,'Ts':[727,819,846,882,904,932,967,1004,1028,1056,1081],'type':'mapTs'}
+
     # # Green water fluxes
     # obs['ET']           = {'sim_file':'Evap.tab'           ,'sim_pts':1,'conv':1,'type':'Ts'}
     # obs['Transp']       = {'sim_file':'EvapT.tab'          ,'sim_pts':1,'conv':1,'type':'Ts'}

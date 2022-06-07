@@ -674,6 +674,9 @@ struct Control{
   bool RepTs_Age_TB2;
   bool RepTs_Age_TBUp;
     // --------------------------
+  bool RepMapTs;
+  int RepMapTimestepNum = 11;
+  int RepMapTimestep[11] = {727,819,846,882,904,932,967,1004,1028,1056,1081};
   
   
   Control(){ 	current_ts_count = 1;

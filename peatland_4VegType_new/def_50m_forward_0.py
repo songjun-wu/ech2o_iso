@@ -57,6 +57,8 @@ class Data:
     obs['SMC-L1']          = {'sim_file':'SoilMoistureL1.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
     obs['SMC-L2']          = {'sim_file':'SoilMoistureL2.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
     obs['SMC-L3']          = {'sim_file':'SoilMoistureL3.tab' ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    
+    obs['SMC-L1_mapTs']       = {'sim_file':'SWC1_mapTs_','conv':1,'Ts':[727,819,846,882,904,932,967,1004,1028,1056,1081],'type':'mapTs'}
 
     obs['Infiltration']                = {'sim_file':'Infilt.tab'    ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
     obs['Percolation_to_Layer2']       = {'sim_file':'PercolL2.tab'  ,'sim_pts':sim_all,'conv':1,'type':'Ts'}

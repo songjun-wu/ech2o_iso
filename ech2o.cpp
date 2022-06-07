@@ -76,6 +76,13 @@ int main(int argc, char* argv[]) {
 	  reportMap_time = 0; //reset the counter
 	}
       }
+    if (oControl->RepMapTs){
+      for (int kk = 0; kk < oControl->RepMapTimestepNum; kk++){
+        if(oControl->RepMapTimestep[kk]*oControl->dt == oControl->current_t_step){
+          Report2Maps_atTimestep();
+        }
+      }
+      }
 
       cout << "\nEnd time step " << oControl->current_ts_count;
       cout << "\nSimulation time " << oControl->current_t_step

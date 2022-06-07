@@ -73,7 +73,7 @@ class Data:
     obs['GW_to_Channel']       = {'sim_file':'GWtoChn.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
     obs['DeepGW_to_Channel']       = {'sim_file':'DeepGWtoChn.tab'       ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
 
-
+    obs['SMC-L1_mapTs']       = {'sim_file':'SWC1_mapTs_','conv':1,'Ts':[727,819,846,882,904,932,967,1004,1028,1056,1081],'type':'mapTs'}
     
     obs['SMC-L1_map']       = {'sim_file':'SWC1_','conv':1,'type':'map'}
     obs['SMC-L2_map']       = {'sim_file':'SWC2_','conv':1,'type':'map'}

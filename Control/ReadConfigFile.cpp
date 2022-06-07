@@ -248,6 +248,7 @@ int Control::ReadConfigFile(string confilename /*= "config.ini"*/)
     current_t_step = current_ts_count * dt;
 
     //*************Reading the maps*************
+    RepMapTs = Config.read<bool>("RepMapTs");
     //-------------   Input Maps   -------------
     Rep_Long_Rad_Down = Config.read<bool>("Report_Long_Rad_Down");
     Rep_Short_Rad_Down = Config.read<bool>("Report_Short_Rad_Down");
