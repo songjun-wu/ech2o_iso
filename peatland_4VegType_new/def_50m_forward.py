@@ -69,9 +69,15 @@ class Data:
     obs['Return_Flow_to_Layer2']       = {'sim_file':'ReturnL2.tab'       ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
 
 
-    obs['Surface_to_Channel']       = {'sim_file':'SrftoChn.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['GW_to_Channel']       = {'sim_file':'GWtoChn.tab'         ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
-    obs['DeepGW_to_Channel']       = {'sim_file':'DeepGWtoChn.tab'       ,'sim_pts':sim_all,'conv':1,'type':'Ts'}
+    obs['Surface_to_Channel']       = {'sim_file':'SrftoChn.tab'         ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
+    obs['GW_to_Channel']       = {'sim_file':'GWtoChn.tab'         ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
+    obs['DeepGW_to_Channel']       = {'sim_file':'DeepGWtoChn.tab'       ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
+    obs['Upstream_to_Channel']       = {'sim_file':'ChnLatI.tab'       ,'sim_pts':sim_chan,'conv':1,'type':'Ts'}
+
+    obs['Surface_to_Channel_map']       = {'sim_file':'SrfChn','conv':1,'type':'map'}
+    obs['GW_to_Channel_map']       = {'sim_file':'GWChn','conv':1,'type':'map'}
+    obs['DeepGW_to_Channel_map']       = {'sim_file':'DeepGWChn','conv':1,'type':'map'}
+
 
     obs['SMC-L1_mapTs']       = {'sim_file':'SWC1_mapTs_','conv':1,'Ts':[727,819,846,882,904,932,967,1004,1028,1056,1081],'type':'mapTs'}
     

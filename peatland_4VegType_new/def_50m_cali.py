@@ -17,7 +17,7 @@ class Opti:
     PATH_EXEC = 'setup_all'   
 
     # Number of iterations
-    nit = 300
+    nit = 120
 
     # Take into account bare rock? (limiting soil evap)
     simRock = 0
